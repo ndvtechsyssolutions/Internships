@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #333;
+}
+
+.blog-section {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.header .section-title {
+  color: goldenrod;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0;
+}
+
+.header .main-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 10px 0 30px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #eeeeee;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  max-width: 300px;
+  padding: 15px;
+  text-align: left;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 159px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card .date {
+  color: rgb(84, 7, 7);
+  font-size: 14px;
+  margin: 8px 0;
+}
+
+.card .description {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.card .read-more {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+  border-bottom: 2px solid black;
+  padding-bottom: 3px;
+}
