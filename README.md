@@ -1,2 +1,1 @@
-# Internships
-This repo is mainly created for the internship students to check in code 
+This is a Repository For Internship Tasks
