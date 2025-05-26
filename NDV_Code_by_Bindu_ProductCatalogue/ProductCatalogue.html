@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Catalogue</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            color: #555;
+        }
+        .price {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            color: #555;
+        }
+        .price {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            color: #555;
+        }
+        .price {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            color: #555;
+        }
+        .price {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        >
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            color: #555;
+        }
+        .price {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        >
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            color: #555;
+        }
+        .price {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        >
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            color: #555;
+        }
+        .price {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        >
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            color: #555;
+        }
+        .price {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        >
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+            background-color: #4CAF50;
+            text-size-adjust: 2em;
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            color: #555;
+        }
+        .price {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        >
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+        h1 {
+            text-align: center;
+            test-size :60px;
+        }
+        .catalogue {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .product:hover {
+            transform: scale(1.03);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product h3 {
+            margin: 10px 0 5px;
+        }
+        .product p {
+            color: #555;
+        }
+        .price {
+            color: #e91e63;
+            font-weight: bold;
+        }
+        .product button {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        </style>
+</head>
+<body>
+    
+<h1>Product Catalogue</h1>
+
+<div class="catalogue">
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/177282601/gcg7w_512.webp" alt="Product 1">
+        <h3>Matte Finish Choker Necklace/Jwewllery Set</h3>
+        <p>Product Details</br>
+Name : Matte Finish Choker Necklace/Jwewllery Set
+Base Metal : Copper
+Plating : Gold Plated
+Stone Type : Pearls
+Sizing : Adjustable
+Type : Choker and Earrings
+Net Quantity (N) : 1
+Vivanta design was manufacturer this jewelleryset Bast quality ever and gold palleted and matte choker set 
+Country of Origin : India
+More Information...</p>
+<b>Select size</b></br>
+<button type="button" >Free size</button> 
+        <p class="price">₹1200 Free Delivery</p>
+        <center><button type="button">Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/544324773/xeh6f_512.webp" height="350" alt="Product 2">
+        <h3>Jewellery Set For Women</h3>
+        <p>Product Details</br>
+Name : Jewellery Set For Women
+Base Metal : Alloy
+Plating : 1Gram Gold
+Stone Type : Agate
+Sizing : Adjustable
+Type : As Per Image
+Net Quantity (N) : 1
+Country of Origin : India
+More Information...</p>
+<b>Select size</b></br>
+<button type="button" >Free size</button> 
+        <p class="price">₹5000 Free Delivery</p>
+        <center><button type="button">Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/228040662/tnuou_512.webp" alt="Product 3">
+        <h3>Twinkling Fancy Jewellery Sets</h3>
+        <p>Product Details</br>
+Name : Twinkling Fancy Jewellery Sets
+Base Metal : Brass
+Plating : Gold Plated
+Stone Type : Pearls
+Sizing : Adjustable
+Type : Necklace and Earrings
+Net Quantity (N) : 1
+Country of Origin : India
+More Information</p>
+<b>Select size</b></br>
+<button type="button" >Free size</button> 
+        <p class="price">₹300 Free Delivery </p>
+      <center><button type="button">Add to Cart</button></center>
+</div>
+
+<div class="catalogue">
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/541545831/nwf2l_512.webp" width="200" height="200" alt="Product 1">
+        <h3>Book:The Book of Clarity</h3>
+        <p>Product details</br>
+            Name : The Book of Clarity: Building Your Dream Startup Using First Principles Thinking
+Author : paras
+Book Format : Paperback
+Genre : Children's & Young Adult
+ISBN : 9875400231214
+Language : English
+Pages : 201-300 Pages
+Publish Year : 2025
+Publisher : book
+Reading age : Adults
+Sub Genre : Literary Theory
+Country of Origin : India
+More Information...
+</p>
+<b>Select size</b></br>
+<button type="button" >Free size</button>   
+  <p class="price">₹134
+Free Delivery</p>
+<center><button type="button" >Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/162926289/8jeif_512.webp" alt="Product 2">
+        <h3>Book:DON'T BELIEVE EVERYTHING YOU THINK</h3>
+        <p>Product Details</br>
+Name : DON'T BELIEVE EVERYTHING YOU THINK
+DON'T BELIEVE EVERYTHING YOU THINK
+Country of Origin : India
+More Information...</p>
+<b>Select size</b></br>
+<button type="button" >Free size</button>   
+        <p class="price">₹101 
+            Free Delivery</p>
+<center><button type="button" >Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/322046220/ujavc_512.webp"  width="200" height="300" alt="Product 3">
+        <h3>WING OF FIRE</h3>
+        <p>Product Details</br>
+Name : WING OF FIRE
+Country of Origin : India
+More Information...</p>
+<b>Select size</b></br>
+<button type="button" >Free size</button>  
+        <p class="price">₹139
+            Free Delivery
+           <center><button type="button" >Add to Cart</button></center>
+</p>
+    </div>
+
+<div class="catalogue">
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/162926289/8jeif_512.webp" alt="Product 1">
+        <h3>Living Tree Premium Dry Fruit Anjeer + Pista (Salted) + Cashew (Whole) Combo 750 grams (250 grams Each)</h3>
+        <p>Product Details</br>
+Name : Living Tree Premium Dry Fruit Anjeer + Pista (Salted) + Cashew (Whole) Combo 750 grams (250 grams Each)
+FSSAI License Number : 10122005000814
+Shelf life (Best Before) : 12 Months
+Net Quantity (N) : 1
+Veg/NonVeg : Veg
+Dry fruits are essential for maintaining a healthy diet routine with these Premium quality dry fruits combo pack could be your go-to superfood choice. Living Tree focuses on the hand-picking of excellent quality dry fruits. 
+Country of Origin : India
+More Information</p>
+<b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹834
+Free Delivery</p>
+<center><button type="button" >Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/143455799/nzcg8_512.webp" height="350" alt="Product 2">
+        <h3>Eatriite Mamra Giri Almond Kernel & Cashew Roasted & Salted Combo 400g (200g x 2)</h3>
+        <p>Product Details</br>
+Name : Eatriite Mamra Giri Almond Kernel & Cashew Roasted & Salted Combo 400g (200g x 2)
+FSSAI License Number : 00000000000000
+Shelf life (Best Before) : 12 Months
+Net Quantity (N) : 1
+Veg/NonVeg : Veg
+Cashew nuts are responsible for growth of good cholesterol .
+Country of Origin : India
+More Information...</p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹980</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/166321267/wvp8f_512.webp" alt="Product 3">
+        <h3>udraksha Purify Dry Fruit Combo Pack - (250g * 3) 750g (Cashew Nuts, Raisins, Almonds) - All Premium.
+ </h3>
+        <p>Product Details</br>
+Name : Rudraksha Purify Dry Fruit Combo Pack - (250g * 3) 750g (Cashew Nuts, Raisins, Almonds) - All Premium.
+FSSAI License Number : 22222100000000
+Shelf life (Best Before) : 12 Months
+Net Quantity (N) : 1
+Veg/NonVeg : Veg
+Weight : 750gm
+Rudraksha Purify Dry Fruit Combo Pack - (250g * 3) 750g (Cashew Nuts, Raisins, Almonds)
+Country of Origin : India
+More Information...</p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹700</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+</div>
+
+<div class="catalogue">
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/541517009/myywx_512.webp" alt="Product 1">
+        <h3>Trendy ANC Gaming earbuds which comes with 50 hour Battery Backup and high Quality Design with Deep Bass sound with Gaming Chipset With cooper speaker and matel Ears or Type C fast charge or Vibration on calls and notifications Feature and Water or Dust proof with low letency game model</h3>
+        <p>Product details</br>Battery Charge Time : 1 Hour
+BIS/ISI Certification Number : 0000
+Bluetooth Range : 50m and above 50m
+Bluetooth Version : 5.3
+Brand : URBN ARMR GEAR (UAG)
+Charging Type : Type C
+Color : Grey
+Compatibility : All Smartphones
+Frequency : 100 Hz
+Material : ABS Plastic
+Mic : Yes
+Model Name : jjkl
+Net Quantity (N) : 1
+Noise Cancelling : Yes
+Play Time : Above 20 Hours
+Type : In The Ear
+Warranty Period : 6 Months Brand Warranty
+Warranty Type : Pick Up</p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹2000 Free Delivery</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/544402914/e2vaf_512.webp" height="400" alt="Product 2">
+        <h3>Launched Drift+ Smart Watch 1.85''HD Screen, Bluetooth Calling, IP68, 500 Nits Brightness,150+ Watchfaces, AI Voice Assistant, SpO2 Monitoring, 100+ Sports Mode Smartwatch (Jet Black)</h3>
+        <p> Product details</br>Strap Material : Metal
+Color : Black
+Dial Color : Black
+Display Type : Digital
+Ideal for : Unisex
+Net Quantity (N) : 1
+Strap Color : Black
+Country of Origin : India
+More Information...</p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹800 Free Delivery</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/14527865/c2vyg_512.webp"  height="400" alt="Product 3">
+        <h3>Editrix Sh12 Wireless Bluetooth Headset</h3>
+        <p>Product Details</br>
+Product Name : Editrix Sh12 Wireless Bluetooth Headset
+Brand Name : Editrix
+Material : Plastic
+Type : Over The Ear
+Compatibility : All Smartphones
+Net Quantity (N) : 1
+Color : Pink
+Mic : Yes
+Bluetooth Version : 4.1
+Warranty_Type : Carry In
+Charging Type : Micro USB
+Battery Charge Time : 1 Hour
+Battery Backup : 6 Hours
+Frequency : 10 Hz
+Play Time : 10 Hours
+Noise Cancelling : No
+Water Resistant : No
+Sizes : Free Size
+Country of Origin : India
+More Information...</p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹650</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+</div>
+
+<div class="catalogue">
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/318527187/ulizj_512.webp" alt="Product 1">
+        <h3>Name : Scheibe Foundation Makeup Brush Set Kit - 13 Pcs Green Premium Synthetic Kabuki Eye Shadows Make Up Brushes</h3>
+        <p>Product Details</br>
+Name : Scheibe Foundation Makeup Brush Set Kit - 13 Pcs Green Premium Synthetic Kabuki Eye Shadows Make Up Brushes
+Brand : Scheibe
+Color : Black
+Contains : Brush
+Weight : 100GM
+Net Quantity (N) : More than 10
+Our 13pcs makeup brushes have plastic handle for easy use. Highest quality material, high quality Synthetic fiber. Our 13pcs makeup brushes provides Assortment of Makeup Brushes meet all your requirements for your face and eye makeup application.
+Country of Origin : China
+More Information...</p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹500</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/325532538/us5sl_512.webp" alt="Product 2">
+        <h3>Face Pack</h3>
+        <p>Product Detail</br>
+            Product Name : Gold Peel Off Mask |Face Pack For Dry Skin de tan & Dark Spots Removal , Blackhead & Whitehead Removal, Btightening Whitening Skin | Classic Face Mask Sensational Intense Face Masks Unique Face Packs Proffesional Moisturizing Face Masks Face Mask Face Packs 60 gm
+Brand Name : Khadi Herbal
+Brand : Khadi Herbal
+Flavour : Fruit
+Net Quantity (N) : 1
+Skin Type : Dry
+Type : Mask
+Capacity : 60gm
+Country of Origin : India
+More Information...</p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹309</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/410728737/3gmob_512.webp" alt="Product 3">
+        <h3>FACES CANADA 2-Step Glow Getter Makeup Kit </h3>
+        <p>Product Details</br>
+            Name : FACES CANADA 2-Step Glow Getter Makeup Kit - Rose Gold Strobe Cream (30ml) & Peaches N Cream Tinted Moisturizer - Light (35g) | Pack of 2
+            Product Name : FACES CANADA 2-Step Glow Getter Makeup Kit - Rose Gold Strobe Cream (30ml) & Peaches N Cream Tinted Moisturizer - Light (35g) | Pack of 2
+Net Quantity (N) : 2
+Skin Type : All Skin Types
+Type : Cream
+Capacity : 30ml
+Shade : Beige
+Finish : Luminious
+Country of Origin : India
+More Information...</p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹890</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+</div>
+    
+<div class="catalogue">
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/147998125/zo32s_512.webp" alt="Product 1">
+        <h3> Double X Adjustable Music Keyboard Stand Metal Digital Piano Keyboard Stand with 7 Position Locking Straps Musical Heavy-Duty, Double-X Stand Music Keyboard Stand</h3>
+        <p>Product Details</br>
+Name : Double X Adjustable Music Keyboard Stand Metal Digital Piano Keyboard Stand with 7 Position Locking Straps Musical Heavy-Duty, Double-X Stand Music Keyboard Stand
+Net Quantity (N) : 1. </p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹2050</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/276368326/5m03n_512.webp" alt="Product 2">
+        <h3>Corslet Microphone Stands Mic Stand Mike Stand Microphone Studio Boom Arm Stand Mic Floor Stand Tripod Mic Stand for Microphone</h3>
+        <p>Product Details</br>
+Name : Corslet Microphone Stands Mic Stand Mike Stand Microphone Studio Boom Arm Stand Mic Floor Stand Tripod Mic Stand for Microphone with Dual Mike Clips Professional Adjustable Height Condenser Mic Stand Studio Recording Singing Mic Stand Microphone Studio Mic Stand Gaming Mic Stand Mike Stands Speech
+Net Quantity (N) : 1</p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹850</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+    <div class="product">
+        <img src="https://images.meesho.com/images/products/525084919/tjr05_512.webp" height="450" alt="Product 3">
+        <h3>K9 Wireless Microphone</h3>
+        <p>Product Details</br>
+Name : K9 Wireless Microphone
+Net Quantity (N) : 1
+K9 Dual Wireless Microphone, Digital Mini Portable Recording Clip Mic with Receiver for All,Lighting Mobile Phones.
+K9 Wireless Mic - Best For Travel Vlogging & Interviews
+Country of Origin : India
+More Information...</p>
+        <b>Select size</b></br>
+<button type="button" >Free size</button>
+        <p class="price">₹569</p>
+        <center><button type="button" >Add to Cart</button></center>
+    </div>
+</div>
+</body>
+</html>
