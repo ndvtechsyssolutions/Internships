@@ -1,0 +1,30 @@
+from google.colab import drive
+drive.mount("/content/drive")
+import numpy as np
+import pandas as pd
+df = pd.read_csv('/content/drive/MyDrive/code/netflix_titles.csv')
+df.columns = df.columns.str.strip().str.lower().str.replace(' ', '_')
+df['director'] = df['director'].fillna('unspecified')
+df['cast'] = df['cast'].fillna('unknown')
+df['country'] = df['country'].fillna('unspecified')
+df['rating'] = df['rating'].fillna('unrated')
+df['date_added'] = df['date_added'].fillna('unknown')
+df['duration'] = df['duration'].fillna('unknown')
+df = df.drop_duplicates(subset=['show_id', 'title'])
+df['release_year'] = pd.to_numeric(df['release_year'], errors='coerce')
+def get_duration_number(value):
+    if value == 'unknown':
+        return 0
+    try:
+        return int(value.split()[0])
+    except:
+        return 0
+df['duration_number'] = df['duration'].apply(get_duration_number)
+print("Dataset Info:")
+print(df.info())
+print("\nMissing Values:")
+print(df.isnull().sum())
+print("\nFirst 5 Rows:")
+print(df.head())
+df.to_csv('/content/drive/MyDrive/code/netflix_titles_cleaned.csv', index=False)
+print("Cleaned data saved as 'netflix_titles_cleaned.csv'")
