@@ -1,0 +1,24 @@
+[
+    {
+        "student_id": "S001",
+        "name": "Alice Johnson",
+        "branch": "CSE",
+        "year": "2",
+        "marks": "88"
+    },
+    {
+        "student_id": "S002",
+        "name": "Bob Smith",
+        "branch": "ECE",
+        "year": "3",
+        "marks": "76"
+    },
+    {
+        "student_id": "S003",
+        "name": "Charlie Lee",
+        "branch": "ME",
+        "year": "1",
+        "marks": "91"
+    },
+
+]
