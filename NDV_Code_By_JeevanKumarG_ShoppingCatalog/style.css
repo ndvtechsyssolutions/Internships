@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+        overflow-x: hidden !important;
+}
+/* ---------------------------------------------------- */
+
+/* Header section */
+header {
+    background-color: #131921;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    justify-content:space-between ;
+}
+/* Header image */
+header .logo {
+margin-left: 20px;
+margin-top: 15px;
+}
+
+#logo {
+    height: 80px;
+}
+/* Heading - Shoping Cataloge */
+header h1 {
+    color: white;
+    font-size: 20px;
+}
+
+#cartlogo{
+    height:30px;
+    width :30px;
+    margin-right : 20px; 
+}
+
+
+/* ---------------------------------------------------- */
+
+/* Navbar under header */
+nav {
+    background-color: #222f3e;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    display: inline-block;
+    border: 2px solid transparent;
+}
+
+a:hover {
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+/* ---------------------------------------------------- */
+
+/* Shoping Items / cards */
+
+.items{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.product{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #eaedf1; */
+    border: 1px solid rgb(11, 11, 11);
+    width : 200px;
+    height: 300px;
+    padding : 10px;
+    margin-top: 20px;
+}
+
+.product img{
+    height: 100%;
+    width: 100%;
+    /* border: 1px solid black; */
+}
+
+/* info */
+
+.product .info {
+    position: relative;
+    margin-top : px;
+    padding: 10px;
+    /* border: 1px solid black; */
+}
+
+.product .info h1{
+    font-size: 20px;
+}
+
+.product .info span {
+    font-size: 15px;
+}
+
+.product button{
+    background-color: #ffd812;
+    font-size: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+/* ---------------------------------------------------- */
+
+/* Footer Section */
+
+footer {
+    margin-top: 20px;
+    background-color: #222f3e;
+    height: 100px;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
