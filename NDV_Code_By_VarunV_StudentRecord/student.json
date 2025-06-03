@@ -1,0 +1,23 @@
+[
+    {
+        "student_id": "5410",
+        "name": "Varun",
+        "branch": "AI&DS",
+        "year": 2,
+        "marks": 65
+    },
+    {
+        "student_id": "5400",
+        "name": "Asphalt",
+        "branch": "CSE",
+        "year": 2,
+        "marks": 80
+    },
+    {
+        "student_id": "5468",
+        "name": "Acer",
+        "branch": "MECH",
+        "year": 2,
+        "marks": 93
+    }
+]
