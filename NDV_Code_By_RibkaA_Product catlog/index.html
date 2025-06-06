@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Catalog</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>My Product Catalog</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="product-grid">
+      <!-- Repeat for 6 products -->
+      <div class="product">
+        <img src="C:\Users\admin\Downloads\mbl.jpg" alt="Product 1">
+        <h3>Product 1</h3>
+        <p>$19.99</p>
+        <p>High-quality product with great features.</p>
+      </div>
+
+      <div class="product">
+        <img src="C:\Users\admin\Downloads\lap.jpg" alt="Product 2">
+        <h3>Product 2</h3>
+        <p>$29.99</p>
+        <p>Reliable and durable item for everyday use.</p>
+      </div>
+<div class="product">
+        <img src="C:\Users\admin\Downloads\pods.jpg" alt="Product 3">
+        <h3>Product 3</h3>
+        <p>$39.99</p>
+        <p>Reliable and durable item for everyday use.</p>
+      </div>
+<div class="product">
+        <img src="C:\Users\admin\Downloads\tv.jpg" alt="Product 4">
+        <h3>Product 4</h3>
+        <p>$19.99</p>
+        <p>Reliable and durable item for everyday use.</p>
+      </div>
+
+<div class="product">
+        <img src="C:\Users\admin\Downloads\ac.jpg" alt="Product 5">
+        <h3>Product 5</h3>
+        <p>$49.99</p>
+        <p>Reliable and durable item for everyday use.</p>
+      </div>
+
+<div class="product">
+        <img src="C:\Users\admin\Downloads\was.jpg" alt="Product 6">
+        <h3>Product 6</h3>
+        <p>$69.99</p>
+        <p>Reliable and durable item for everyday use.</p>
+      </div>
+ </section>
+  </main>
+
+  <footer>
+    <p>Follow us:</p>
+    <ul class="social-media">
+      <li><a href="#">Facebook</a></li>
+      <li><a href="#">Twitter</a></li>
+      <li><a href="#">Instagram</a></li>
+    </ul>
+  </footer>
+
+
+/* style.css */
+</body>
+</html>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 1rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.product {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.product img {
+  max-width: 100%;
+  height: auto;
+}
+
+footer {
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 1rem;
+}
+
+.social-media {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0;
+}
+
+.social-media li a {
+  text-decoration: none;
+  color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
