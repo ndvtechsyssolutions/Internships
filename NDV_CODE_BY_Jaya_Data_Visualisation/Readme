@@ -1,0 +1,19 @@
+# 📊 IPL Data Visualization Dashboard using Streamlit
+
+This project is an interactive data visualization dashboard built with Streamlit. Users can upload or explore IPL dataset using filters and visualize data using charts.
+
+## 🚀 Features
+
+- Upload your own CSV file
+- Sidebar filters for interactive exploration
+- Visualizations: Bar, Line, Pie Charts
+- Summary statistics
+- Export filtered data to CSV
+
+## 🧰 Tech Stack
+
+- Python
+- Streamlit
+- Pandas
+- Matplotlib / Seaborn
+
