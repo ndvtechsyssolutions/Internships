@@ -1,0 +1,62 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import plotly.express as px
+
+
+st.set_page_config(layout="wide")
+st.title("COVID-19 Data Dashboard")
+st.markdown("Explore COVID-19 trends interactively with filters, charts, and downloadable reports.")
+
+st.sidebar.header(" Upload your CSV")
+uploaded_file = st.sidebar.file_uploader("Upload a CSV file", type=["csv"])
+
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+else:
+   df = pd.read_csv(r"C:\Users\kella\Downloads\covid_19_clean_complete.csv")
+
+
+
+df['Date'] = pd.to_datetime(df['Date'])
+df.rename(columns={"Country/Region": "Country", "Province/State": "State"}, inplace=True)
+
+st.sidebar.header(" Filter the Data")
+countries = st.sidebar.multiselect("Select Countries", sorted(df["Country"].unique()), default=["India", "US", "Brazil"])
+selected_metric = st.sidebar.selectbox("Select Metric", ["Confirmed", "Deaths", "Recovered"])
+date_range = st.sidebar.date_input("Select Date Range", [df["Date"].min(), df["Date"].max()])
+
+filtered_df = df[
+    (df["Country"].isin(countries)) &
+    (df["Date"] >= pd.to_datetime(date_range[0])) &
+    (df["Date"] <= pd.to_datetime(date_range[1]))
+]
+
+st.subheader("Summary Statistics")
+grouped = filtered_df.groupby("Country")[selected_metric].agg(["mean", "median", "count"]).reset_index()
+st.dataframe(grouped.style.highlight_max(axis=0), use_container_width=True)
+
+
+st.subheader("Visualizations")
+
+st.markdown("Line Chart: COVID-19 Trend Over Time")
+line_data = filtered_df.groupby(["Date", "Country"])[selected_metric].sum().reset_index()
+fig_line = px.line(line_data, x="Date", y=selected_metric, color="Country", markers=True)
+st.plotly_chart(fig_line, use_container_width=True)
+
+st.markdown(" Bar Chart: Total Cases by Country")
+bar_data = filtered_df.groupby("Country")[selected_metric].sum().reset_index()
+fig_bar = px.bar(bar_data, x="Country", y=selected_metric, color="Country", text=selected_metric)
+st.plotly_chart(fig_bar, use_container_width=True)
+
+st.markdown("Pie Chart: Distribution of Cases")
+fig_pie = px.pie(bar_data, names="Country", values=selected_metric, hole=0.4)
+st.plotly_chart(fig_pie, use_container_width=True)
+
+
+st.subheader(" Download Filtered Data")
+csv = filtered_df.to_csv(index=False).encode("utf-8")
+st.download_button("Download as CSV", csv, "filtered_data.csv", "text/csv")
+
+
+st.markdown("---")
