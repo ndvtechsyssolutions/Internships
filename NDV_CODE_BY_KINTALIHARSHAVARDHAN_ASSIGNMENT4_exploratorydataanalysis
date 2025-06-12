@@ -1,0 +1,41 @@
+#libraries and mounting 
+from google.colab import drive
+drive.mount("/content/drive")
+
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+#Load_dataset
+df = pd.read_csv('/content/drive/MyDrive/Data/Titanic-Dataset.csv')
+print("First 5 rows of the dataset:")
+print(df.head())
+
+print("\nDataset shape:", df.shape)
+
+print("\nDataset info:")
+print(df.info())
+
+print("\nSummary statistics:")
+print(df.describe())
+
+print("\nMissing values in each column:")
+print(df.isnull().sum())
+
+df = df.drop_duplicates()
+
+
+df['Age'].fillna(df['Age'].median(), inplace=True)
+
+df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
+
+
+df.drop(columns='Cabin', inplace=True)
+
+plt.figure(figsize=(8, 5))
+sns.histplot(df['Age'], bins=30, kde=True)
+plt.title("Age Distribution")
+plt.xlabel("Age")
+plt.ylabel("Count")
+plt.show()
