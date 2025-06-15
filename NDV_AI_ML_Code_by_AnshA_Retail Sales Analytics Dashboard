@@ -1,0 +1,75 @@
+# Generation of Sample synthetic retail sales dataset
+
+import pandas as pd
+import numpy as np
+
+# Generate random dates for transactions
+date_rng = pd.date_range(start='2024-01-01', end='2024-06-15', freq='D')
+
+# Sample data categories
+categories = ['Electronics', 'Clothing', 'Groceries', 'Furniture', 'Beauty']
+customer_types = ['New', 'Returning', 'Loyal']
+
+# Creating the dataset
+np.random.seed(42)
+data = {
+    'Date': np.random.choice(date_rng, size=500),
+    'Product_Category': np.random.choice(categories, size=500),
+    'Customer_Type': np.random.choice(customer_types, size=500),
+    'Sales_Amount': np.random.randint(100, 5000, size=500),
+    'Units_Sold': np.random.randint(1, 20, size=500)
+}
+
+df = pd.DataFrame(data)
+
+# Convert Date column to datetime format
+df['Date'] = pd.to_datetime(df['Date'])
+
+# Save to CSV
+df.to_csv('/content/synthetic_retail_data.csv', index=False) # This will store the CSV file in Colab's /content/ directory.
+# After saving, you can read the CSV file inside Colab:
+print(df.head())  # Check the first few rows
+
+# --------------------Sample synthetic retail sales dataset Generated--------------------------Sample synthetic retail sales dataset Generated--------------------------------------
+
+# Download the Dataset, If you want to download the dataset to your local machine:
+# This will trigger a download prompt in your browser.
+from google.colab import files
+files.download('/content/synthetic_retail_data.csv')
+
+# ---------------synthetic_retail_data.csv dataset successfully saved in Colab's /content/ directory & the dataset is successfully downloaded to your local machine:-----------------------------
+
+# Let’s structure our project step by step:
+
+# ---------------------------Data Acquisition & Loading----------------------
+
+# Load the Saved Dataset into Pandas
+# import pandas as pd
+# df = pd.read_csv('/content/synthetic_retail_data.csv')
+
+# After saving, you can read the CSV file inside Colab:
+# print(df.head())  # Check the first few rows
+
+# -----------------------------Exploratory Data Analysis (EDA)---------------------------
+print(df.info())  # Check data types
+print(df.describe())  # Summary statistics
+print(df.isnull().sum())  # Missing values
+
+#----------------------------------- Handle missing data:--------------------------------------
+df.fillna(method='ffill', inplace=True)  # Forward-fill strategy
+
+# -------------------------------Data Visualization (Matplotlib & Seaborn)----------------------------
+
+# Sales Trends Over Time:
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+df['Date'] = pd.to_datetime(df['Date'])
+df.set_index('Date')['Sales_Amount'].plot(figsize=(12, 6), title="Sales Trends Over Time")
+plt.show()
+
+# Category-wise Sales Distribution:
+sns.barplot(x='Product_Category', y='Sales_Amount', data=df)
+plt.title("Sales by Category")
+plt.xticks(rotation=45)
+plt.show()
