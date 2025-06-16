@@ -1,0 +1,151 @@
+from google.colab import drive
+drive.mount("/content/drive")
+
+!pwd
+
+!ls
+
+import pandas as pd
+import numpy as np
+df = pd.read_csv('/content/drive/MyDrive/NDV/titanic.zip')
+df
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+# Load the dataset
+try:
+    df = pd.read_csv('/content/drive/MyDrive/NDV/titanic.zip')
+except FileNotFoundError:
+    print("titanic_train.csv not found. Please download it from Kaggle and place it in the same directory.")
+   
+    exit()
+print("Dataset loaded successfully.")
+# --- 1. Data Cleaning ---
+print("\n--- Data Cleaning ---")
+# Handle missing values
+print("\nMissing values before handling:")
+print(df.isnull().sum())
+# 'Age': Impute with median as it's numerical and can have outliers
+df['Age'].fillna(df['Age'].median(), inplace=True)
+# 'Embarked': Impute with mode as it's categorical
+df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
+df.drop('Cabin', axis=1, inplace=True)
+print("\nMissing values after handling:")
+print(df.isnull().sum())
+# Remove duplicates
+print(f"\nNumber of duplicate rows before removal: {df.duplicated().sum()}")
+df.drop_duplicates(inplace=True)
+print(f"Number of duplicate rows after removal: {df.duplicated().sum()}")
+# --- 2. Generate Summary Statistics ---
+print("\n--- Summary Statistics ---")
+print("\nInfo():")
+df.info()
+print("\nDescribe():")
+print(df.describe())
+print("\nValue Counts for key categorical columns:")
+print("\nSex Value Counts:")
+print(df['Sex'].value_counts())
+print("\nPClass Value Counts:")
+print(df['Pclass'].value_counts())
+print("\nSurvived Value Counts:")
+print(df['Survived'].value_counts())
+print("\nEmbarked Value Counts:")
+print(df['Embarked'].value_counts())
+# --- 3. Visualize Distributions ---
+print("\n--- Visualizing Distributions ---")
+# Histograms for numerical features
+df.hist(bins=20, figsize=(12, 10))
+plt.suptitle('Histograms of Numerical Features')
+plt.tight_layout(rect=[0, 0.03, 1, 0.95]) # Adjust layout to prevent suptitle overlap
+plt.show()
+# Box plots for numerical features (to check for outliers)
+plt.figure(figsize=(10, 6))
+sns.boxplot(data=df[['Age', 'Fare']])
+plt.title('Box Plots of Age and Fare')
+plt.show()
+# Count plots for categorical features
+plt.figure(figsize=(15, 5))
+plt.subplot(1, 3, 1)
+sns.countplot(x='Sex', data=df)
+plt.title('Passenger Count by Sex')
+plt.subplot(1, 3, 2)
+sns.countplot(x='Pclass', data=df)
+plt.title('Passenger Count by Pclass')
+plt.subplot(1, 3, 3)
+sns.countplot(x='Embarked', data=df)
+plt.title('Passenger Count by Embarked')
+plt.tight_layout()
+plt.show()
+# --- 4. Examine Relationships Between Variables ---
+print("\n--- Examining Relationships Between Variables ---")
+numerical_cols = ['Age', 'Fare', 'Survived']
+sns.pairplot(df[numerical_cols], hue='Survived', palette='viridis')
+plt.suptitle('Pair Plot of Numerical Features by Survival', y=1.02)
+plt.show()
+correlation_matrix = df.select_dtypes(include=[np.number]).corr()
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+plt.title('Correlation Heatmap of Numerical Features')
+plt.show()
+# --- 5. Groupby Operations ---
+print("\n--- Groupby Operations: Survival Rates ---")
+# Survival rate by Sex
+survival_by_sex = df.groupby('Sex')['Survived'].mean().reset_index()
+print("\nSurvival Rate by Sex:")
+print(survival_by_sex)
+sns.barplot(x='Sex', y='Survived', data=survival_by_sex)
+plt.title('Survival Rate by Sex')
+plt.ylabel('Survival Rate')
+plt.show()
+# Survival rate by Pclass
+survival_by_pclass = df.groupby('Pclass')['Survived'].mean().reset_index()
+print("\nSurvival Rate by Pclass:")
+print(survival_by_pclass)
+sns.barplot(x='Pclass', y='Survived', data=survival_by_pclass)
+plt.title('Survival Rate by Pclass')
+plt.ylabel('Survival Rate')
+plt.show()
+# Survival rate by Embarked
+survival_by_embarked = df.groupby('Embarked')['Survived'].mean().reset_index()
+print("\nSurvival Rate by Embarked:")
+print(survival_by_embarked)
+sns.barplot(x='Embarked', y='Survived', data=survival_by_embarked)
+plt.title('Survival Rate by Embarked')
+plt.ylabel('Survival Rate')
+plt.show()
+print("\n--- Bonus Points ---")
+# Feature Engineering: Create 'FamilySize'
+df['FamilySize'] = df['SibSp'] + df['Parch'] + 1 # SibSp + Parch + self
+print("\nNew feature 'FamilySize' created.")
+print(df[['SibSp', 'Parch', 'FamilySize']].head())
+# Survival rate by FamilySize
+survival_by_familysize = df.groupby('FamilySize')['Survived'].mean().reset_index()
+print("\nSurvival Rate by FamilySize:")
+print(survival_by_familysize)
+sns.barplot(x='FamilySize', y='Survived', data=survival_by_familysize)
+plt.title('Survival Rate by FamilySize')
+plt.ylabel('Survival Rate')
+plt.show()
+# Violin plot of Age distribution by Pclass and Survived
+plt.figure(figsize=(10, 6))
+sns.violinplot(x='Pclass', y='Age', hue='Survived', data=df, split=True)
+plt.title('Age Distribution by Pclass and Survival Status')
+plt.show()
+# Swarm plot of Fare distribution by Pclass
+plt.figure(figsize=(10, 6))
+sns.swarmplot(x='Pclass', y='Fare', data=df)
+plt.title('Fare Distribution by Pclass (Swarm Plot)')
+plt.show()
+# --- Top 5 Insights (Markdown/Text Cells in a Jupyter Notebook) ---
+print("\n--- Top 5 Insights ---")
+print("""
+1.  **Gender greatly impacted survival**: Females had a significantly higher survival rate compared to males.
+2.  **Socio-economic status mattered**: Passengers in Pclass 1 had a much higher survival rate than those in Pclass 2 or 3, indicating the impact of class on survival.
+3.  **Age distribution**: The 'Age' column had missing values which were imputed, and its distribution shows a higher concentration of young adults. Children (younger ages) also appear to have a higher survival rate in some classes.
+4.  **Fare distribution and outliers**: The 'Fare' distribution is skewed, with a few extreme outliers indicating very expensive tickets, likely corresponding to higher classes.
+5.  **Family Size vs. Survival**: Passengers with moderate family sizes (e.g., 2-4 members) might have had better survival chances than those traveling alone or in very large groups.
+""")
