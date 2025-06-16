@@ -1,0 +1,181 @@
+from google.colab import drive
+drive.mount("/content/drive")
+import matplotlib.pyplot as plt
+from google.colab import drive 
+
+drive.mount("/content/drive")
+
+
+!pwd
+
+
+
+!ls
+
+
+!ls "/content/drive/My Drive/"
+
+
+
+file_path = ('/content/drive/My Drive/NDV/salaryy.zip')
+
+
+
+from google.colab import drive
+drive.mount('/content/drive')
+!ls "/content/drive/My Drive/NDV/"
+import zipfile
+import os
+zip_file_path = '/content/drive/My Drive/NDV/salaryy.zip' 
+extract_path = '/content/drive/My Drive/NDV/'
+
+try:
+    with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_path)
+    print(f"'{zip_file_path}' extracted successfully to '{extract_path}'")
+    !ls "/content/drive/My Drive/NDV/"
+except FileNotFoundError:
+    print(f"Error: Zip file '{zip_file_path}' not found. Please ensure the path is correct.")
+except zipfile.BadZipFile:
+    print(f"Error: '{zip_file_path}' is not a valid zip file or is corrupted.")
+except Exception as e:
+    print(f"An unexpected error occurred during extraction: {e}")
+
+
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+file_path = '/content/drive/My Drive/NDV/salaryy.zip' 
+
+try:
+    df = pd.read_csv(file_path, encoding='latin1', sep=',')
+    print("Dataset loaded successfully!")
+except FileNotFoundError:
+    print(f"Error: '{file_path}' not found. Please ensure the file exists at this exact path in your Google Drive.")
+    print("If you just extracted a zip, ensure the 'file_path' above points to the *extracted* file, not the zip.")
+    exit()
+except UnicodeDecodeError:
+    print(f"Error: UnicodeDecodeError while reading '{file_path}'. The file might be encoded differently.")
+    print("Try 'cp1252' or 'ISO-8859-1' for encoding if 'latin1' doesn't work for your chosen option.")
+    exit()
+except pd.errors.ParserError as e:
+    print(f"Error parsing the dataset: {e}")
+    print("This means the `sep` (delimiter) or `header` setting is likely incorrect for 'pd.read_csv'.")
+    print("Please inspect your *extracted* data file using `!head -n 10` in a Colab cell and choose the correct `pd.read_csv` option above.")
+    exit()
+except Exception as e:
+    print(f"An unexpected error occurred while loading the dataset: {e}")
+    exit()
+print("\nDataset Head:")
+print(df.head())
+print("\nDataset Info:")
+df.info()
+print("\nDataset Description:")
+print(df.describe())
+print("\nDataFrame Columns:", df.columns.tolist())
+print("DataFrame Data Types:\n", df.dtypes)
+if 0 in df.columns and 1 in df.columns:
+    df.rename(columns={0: 'YearsExperience', 1: 'Salary'}, inplace=True)
+    print("Columns renamed to 'YearsExperience' and 'Salary'.")
+elif 'YearsExperience' not in df.columns or 'Salary' not in df.columns:
+    print("Error: Expected columns 'YearsExperience' and 'Salary' not found.")
+    print("Please ensure your dataset has these columns or adjust column renaming in the code.")
+    exit()
+for col in ['YearsExperience', 'Salary']:
+    if col in df.columns:
+        df[col] = pd.to_numeric(df[col], errors='coerce') 
+        if df[col].isnull().any():
+            print(f"Warning: NaN values introduced in '{col}' after numeric conversion. Check your data for non-numeric entries.")
+            df.dropna(subset=[col], inplace=True) 
+            print(f"Dropped rows with NaN in '{col}'. New shape: {df.shape}")
+    else:
+        print(f"Critical Error: Column '{col}' is still missing after all checks. Cannot proceed.")
+        exit()
+if df.empty:
+    print("Error: DataFrame is empty after loading and cleaning. Cannot proceed with model training.")
+    exit()
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='YearsExperience', y='Salary', data=df)
+plt.title('Salary vs. Years of Experience')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.grid(True)
+plt.show()
+X = df[['YearsExperience']] 
+y = df['Salary'] 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+print(f"\nTraining set size: {X_train.shape[0]} samples")
+print(f"Test set size: {X_test.shape[0]} samples")
+model = LinearRegression()
+model.fit(X_train, y_train)
+print(f"\nModel Intercept: {model.intercept_:.2f}")
+print(f"Model Coefficient (YearsExperience): {model.coef_[0]:.2f}")
+y_pred = model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+print(f"\nMean Squared Error (MSE): {mse:.2f}")
+print(f"R-squared (R^2) Score: {r2:.2f}")
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='YearsExperience', y='Salary', data=df, label='Actual Data')
+plt.plot(X_test, y_pred, color='red', linewidth=2, label='Regression Line')
+plt.title('Linear Regression: Salary vs. Years of Experience')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.legend()
+plt.grid(True)
+plt.show()
+plt.figure(figsize=(10, 6))
+sns.regplot(x='YearsExperience', y='Salary', data=df, scatter_kws={'alpha':0.6}, line_kws={'color':'red'})
+plt.title('Linear Regression with Confidence Interval (Seaborn regplot)')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.grid(True)
+plt.show()
+comparison_df = pd.DataFrame({'Actual': y_test.values.flatten(), 'Predicted': y_pred.flatten()})
+comparison_df['YearsExperience'] = X_test['YearsExperience'].values
+comparison_df = comparison_df.sort_values(by='YearsExperience').reset_index(drop=True)
+plt.figure(figsize=(14, 7))
+bar_width = 0.35
+index = np.arange(len(comparison_df))
+plt.bar(index, comparison_df['Actual'], bar_width, label='Actual Salary', color='skyblue')
+plt.bar(index + bar_width, comparison_df['Predicted'], bar_width, label='Predicted Salary', color='lightcoral')
+plt.xlabel('Test Data Point Index (Sorted by Experience)')
+plt.ylabel('Salary')
+plt.title('Actual vs. Predicted Salaries on Test Set')
+plt.xticks(index + bar_width / 2, labels=[f'{exp:.1f} Yrs' for exp in comparison_df['YearsExperience']], rotation=90, fontsize=8)
+plt.legend()
+plt.tight_layout()
+plt.show()
+def predict_custom_salary(model):
+    while True:
+        try:
+            user_input = input("\nEnter years of experience to predict salary (or type 'exit' to quit): ")
+            if user_input.lower() == 'exit':
+                break
+            user_experience = float(user_input)
+            if user_experience < 0:
+                print("Years of experience cannot be negative. Please enter a positive number.")
+                continue
+            custom_salary_pred = model.predict(np.array([[user_experience]]))
+            print(f"Predicted Salary for {user_experience:.1f} years of experience: ${custom_salary_pred[0]:,.2f}")
+        except ValueError:
+            print("Invalid input. Please enter a valid number or 'exit'.")
+            continue
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            break
+
+predict_custom_salary(model)
+
+
+
+
