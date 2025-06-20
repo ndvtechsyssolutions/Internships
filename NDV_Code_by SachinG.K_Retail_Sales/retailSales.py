@@ -33,7 +33,7 @@ df = pd.DataFrame(data)
 df['Date'] = pd.to_datetime(df['Date'])
 
 # Preview the data
-print("📊 First 5 Rows:")
+print("First 5 Rows:")
 print(df.head())
 
 
@@ -44,11 +44,11 @@ print("\n📄 Data Info:")
 print(df.info())
 
 # Summary statistics
-print("\n📈 Summary Statistics:")
+print("\n Summary Statistics:")
 print(df.describe())
 
 # Check for missing values
-print("\n🧪 Missing Values:")
+print("\n Missing Values:")
 print(df.isnull().sum())
 #visualization
 
@@ -80,4 +80,4 @@ plt.tight_layout()
 plt.show()
 
 #printing output
-print("\n✅ Retail Fruit Sales Analysis Complete!")
+print("\n Retail Fruit Sales Analysis Complete!")
