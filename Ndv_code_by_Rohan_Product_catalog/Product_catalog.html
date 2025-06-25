@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Catalog</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    /* Navigation */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #333;
+      color: white;
+      padding: 1rem 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Product Section */
+    .product-section {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .product-card {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-icons {
+      margin: 1rem 0;
+    }
+
+    .social-icons a {
+      color: white;
+      margin: 0 0.5rem;
+      text-decoration: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">MyStore</h1>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <section class="product-section">
+      <h2>Our Products</h2>
+      <div class="product-grid">
+        <!-- Product Cards -->
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200" alt="Product 1">
+          <h3>Product 1</h3>
+          <p>$19.99</p>
+          <p>Category: Electronics</p>
+          <p>Lorem ipsum dolor sit amet.</p>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200" alt="Product 2">
+          <h3>Product 2</h3>
+          <p>$29.99</p>
+          <p>Category: Home</p>
+          <p>High-quality item for everyday use.</p>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200" alt="Product 3">
+          <h3>Product 3</h3>
+          <p>$39.99</p>
+          <p>Category: Kitchen</p>
+          <p>Durable and stylish kitchen item.</p>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200" alt="Product 4">
+          <h3>Product 4</h3>
+          <p>$49.99</p>
+          <p>Category: Fashion</p>
+          <p>Trendy and comfortable wear.</p>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200" alt="Product 5">
+          <h3>Product 5</h3>
+          <p>$59.99</p>
+          <p>Category: Fitness</p>
+          <p>Boost your workout performance.</p>
+        </div>
+        <div class="product-card">
+          <img src="https://via.placeholder.com/200" alt="Product 6">
+          <h3>Product 6</h3>
+          <p>$69.99</p>
+          <p>Category: Gadgets</p>
+          <p>Latest tech at your fingertips.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Follow us on social media:</p>
+    <div class="social-icons">
+      <a href="#">Facebook</a>
+      <a href="#">Twitter</a>
+      <a href="#">Instagram</a>
+    </div>
+    <p>&copy; 2025 MyStore. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

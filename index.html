@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Catalog</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <ul id="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header id="home">
+    <h1>Welcome to Our Product Catalog</h1>
+    <p>Explore our latest products below!</p>
+  </header>
+
+  <section id="products" class="product-section">
+    <h2>Our Products</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src=".Images/product2.jpg" alt="Pink2">
+        <h3>Product 1</h3>
+        <p class="price">$19.99</p>
+        <p>Category: High Heels</p>
+        <p>Step out in style with these classic black high heels. Designed for both comfort and elegance, they feature a sturdy heel, cushioned insole, and a smooth finish that complements any outfit—from office wear to evening glam. Elevate your look effortlessly!</p>
+      </div>
+      <div class="product-card">
+        <img src=".product1.png" alt="Product 1">
+        <h3>Product 2</h3>
+        <p class="price">$29.99</p>
+        <p>Category: Accessories</p>
+        <p>👜 Black Handbag Description:
+Elegant. Versatile. Timeless.
+This sleek black handbag is your go-to for every occasion — from brunch dates to boardrooms. Crafted with premium faux leather, it features spacious compartments, a smooth zipper, and gold-tone accents. Pair it with anything for an instant touch of sophistication.</p>
+      </div>
+      <div class="product-card">
+        <img src="product2.jpg" alt="Product 3">
+        <h3>Product 3</h3>
+        <p class="price">$39.99</p>
+        <p>Category: Clothing</p>
+        <p><b>Chic and feminine, perfect for any occasion!</b><br/>
+This beautiful pink dress features a flattering fit with soft, breathable fabric that keeps you comfortable all day long. Its elegant design and delicate detailing make it ideal for parties, casual outings, or special events. Pair it with your favorite accessories to complete the look.
+
+</p>
+      </div>
+      <div class="product-card">
+        <img src="./product4.jpg" alt="Product 4">
+        <h3>Product 4</h3>
+        <p class="price">$24.99</p>
+        <p>Category: Home</p>
+        <p>This beautiful pink dress features a flattering fit with soft, breathable fabric that keeps you comfortable all day long. Its elegant design and delicate detailing make it ideal for parties, casual outings, or special events. Pair it with your favorite accessories to complete the look.
+
+</p>
+      </div>
+      <div class="product-card">
+        <img src="./product5.jpeg" alt="Product 5">
+        <h3>Product 5</h3>
+        <p class="price">$49.99</p>
+        <p>Saree</p>
+        <p>Embrace tradition with a touch of elegance in this stunning pink saree. Crafted from lightweight, flowing fabric with delicate embroidery, it’s perfect for weddings, festivals, or special occasions. Its vibrant color and intricate details will make you stand out beautifully.</p>
+      </div>
+      <div class="product-card">
+        <img src="./product6.jpg" alt="Product 6">
+        <h3>Product 6</h3>
+        <p class="price">$59.99</p>
+        <p>Category: Earrings</p>
+        <p>Add a touch of heritage to your look with these exquisite traditional earrings. Featuring intricate craftsmanship and classic designs, they’re perfect for festive occasions, weddings, or everyday ethnic wear. Lightweight and comfortable, they beautifully complement any traditional outfit..</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>We offer quality products at affordable prices. Our catalog is updated regularly to bring you the latest trends and items.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Email: support@example.com</p>
+    <p>Phone: +91-9876543210</p>
+  </section>
+
+  <footer>
+    <p>Follow us on</p>
+    <ul class="social">
+      <li>Facebook</li>
+      <li>Twitter</li>
+      <li>Instagram</li>
+    </ul>
+    <p>&copy; 2025 Product Catalog</p>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("nav-links").classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

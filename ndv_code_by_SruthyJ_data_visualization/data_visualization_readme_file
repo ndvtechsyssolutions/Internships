@@ -1,0 +1,50 @@
+# Internships
+This repo is mainly created for the internship students to check in code 
+
+1. Dataset and Preprocessing
+
+    The dataset used is a cleaned COVID-19 file (covid-19.csv) containing demographic and health indicators such as population density, temperature, humidity, and sex ratio.
+
+    The Date column is converted into a datetime format using Pandas for proper time series visualization.
+
+🔹 2. Streamlit Interface and Widgets
+
+    The dashboard uses various Streamlit widgets to allow user interaction:
+
+        selectbox for choosing a country
+
+        checkboxes to toggle different visual elements on and off
+
+    The interface is neatly divided into a main area (for content) and a sidebar (for filters and toggles), making it intuitive for users.
+
+🔹 3. Visualizations
+
+The dashboard includes at least four different types of visualizations:
+
+    Line Chart: Displays the trend of average temperature over time.
+
+    Bar Chart: Shows the distribution of population density.
+
+    Pie Chart: Approximates gender ratio using the sexratio column.
+
+    Map (optional): Plots geographical locations (latitude and longitude) of COVID-19 cases using Streamlit's st.map().
+
+These visualizations help users understand the data in both statistical and geographical contexts.
+🔹 4. Summary Statistics
+
+    The app dynamically computes and displays mean, median, and count for:
+
+        Population density (density)
+
+        Average temperature (avgtemp)
+
+        Average humidity (avghumidity)
+
+    This offers quick insights into the central tendencies and spread of the data.
+
+🔹 5. Layout and User Experience
+
+    The layout includes clear titles, section headers, emojis, and markdown formatting to make the dashboard visually appealing and well-organized.
+
+    Users can toggle views (charts/stats/maps) as needed, which enhances interactivity and avoids clutter.
+
