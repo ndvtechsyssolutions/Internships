@@ -1,0 +1,22 @@
+import pandas as pd
+
+df = pd.read_csv('diabetes.csv')  # Make sure you've uploaded the file
+print(df.head())
+print(df.info())       # Data types and non-null counts
+print(df.describe())   # Summary statistics
+print(df.columns)      # Column names
+print(df.isnull().sum())  # Missing values
+print((df == 0).sum())    # Check for zeroes in places like BloodPressure or Glucose
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Blood Pressure distribution
+sns.histplot(df['blood_glucose_level'], kde=True)
+plt.title('Blood Glucose Level Distribution')
+plt.show()
+
+# Correlation heatmap
+plt.figure(figsize=(10,8))
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap='coolwarm')
+plt.title('Feature Correlation')
+plt.show()
