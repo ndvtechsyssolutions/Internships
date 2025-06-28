@@ -1,0 +1,86 @@
+# Mount Google Drive and Import Libraries
+from google.colab import drive
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, roc_curve
+
+# Mount Google Drive
+drive.mount('/content/drive')
+
+#  Load the Preprocessed Dataset
+df = pd.read_csv('/content/drive/MyDrive/Data/emails.csv')  # Replace with your path
+
+print("Columns in dataset:", df.columns)
+
+# Drop ID column and separate features and target
+X = df.drop(['Email No.', 'Prediction'], axis=1)  # 'Email No.' is just an index
+y = df['Prediction']  # Target: 0 = ham, 1 = spam
+
+print(" Dataset shape:", X.shape)
+
+# Train-Test Split
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train Models
+models = {
+    'Logistic Regression': LogisticRegression(max_iter=1000),
+    'Decision Tree': DecisionTreeClassifier(),
+    'Random Forest': RandomForestClassifier()
+}
+
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    print(f"Trained: {name}")
+
+#Evaluate Models
+for name, model in models.items():
+    print(f"\n Evaluation: {name}")
+    y_pred = model.predict(X_test)
+    print("Accuracy:", accuracy_score(y_test, y_pred))
+    print("Classification Report:\n", classification_report(y_test, y_pred))
+    print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+
+#Plot ROC Curve
+plt.figure(figsize=(10, 6))
+for name, model in models.items():
+    if hasattr(model, "predict_proba"):
+        y_probs = model.predict_proba(X_test)[:, 1]
+        fpr, tpr, _ = roc_curve(y_test, y_probs)
+        plt.plot(fpr, tpr, label=name)
+plt.plot([0, 1], [0, 1], 'k--')
+plt.title("ROC Curve")
+plt.xlabel("False Positive Rate")
+plt.ylabel("True Positive Rate")
+plt.legend()
+plt.grid()
+plt.show()
+
+# GridSearchCV for Random Forest
+param_grid = {
+    'n_estimators': [50, 100],
+    'max_depth': [None, 10, 20]
+}
+
+grid_search = GridSearchCV(RandomForestClassifier(), param_grid, cv=3, scoring='accuracy')
+grid_search.fit(X_train, y_train)
+print("\n Best Parameters from GridSearchCV:", grid_search.best_params_)
+
+#Feature Importance Plot
+best_rf = grid_search.best_estimator_
+importances = best_rf.feature_importances_
+top_indices = np.argsort(importances)[-10:]
+top_features = np.array(X.columns)[top_indices]
+
+plt.figure(figsize=(8, 6))
+plt.barh(top_features, importances[top_indices])
+plt.xlabel("Importance")
+plt.title("Top 10 Important Features")
+plt.show()
