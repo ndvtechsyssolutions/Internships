@@ -1,0 +1,110 @@
+<>code.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Catalog</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="header">
+    <h1><b>Product Catalog</b></h1>
+    <p><i>Make-up for You</i></p>
+  </div>
+
+  <div class="product-container">
+    <div class="product"><img src="https://tse3.mm.bing.net/th?id=OIP.skQYSafgXEyAid_XVD6yogHaFj&pid=Api&P=0&h=180" alt="Product"><h2>PRIMERS</h2><p>₹300-₹3000</p></div>
+    <div class="product"><img src="https://tse4.mm.bing.net/th?id=OIP.2d8RgGgFQIogZJSWtZcDjgHaFk&pid=Api&P=0&h=180" alt="Product"><h2>FOUNDATIONS</h2><p>₹500-₹6000</p></div>
+    <div class="product"><img src="https://tse2.mm.bing.net/th?id=OIP.tUAvTiwPdkNDPiMVCPhhrAHaHa&pid=Api&P=0&h=180" alt="Product"><h2>CONCEALERS</h2><p>₹400-₹2000</p></div>
+    <div class="product"><img src="https://tse3.mm.bing.net/th?id=OIP.lymezD4EX2C87h3rSDzxJwHaFn&pid=Api&P=0&h=180" alt="Product"><h2>SETTING POWDERS</h2><p>₹300-₹1500</p></div>
+    <div class="product"><img src="https://tse2.mm.bing.net/th?id=OIP.Ahj-XtdvOpdmIPpWoaBqjwHaGs&pid=Api&P=0&h=180" alt="Product"><h2>BLUSHES</h2><p>₹600-₹6500</p></div>
+
+    <div class="product"><img src="https://tse2.mm.bing.net/th?id=OIP.TfHQS6FPRP7HHCIDs1ZgnwHaHa&pid=Api&P=0&h=180" alt="Product"><h2>EYE SHADOW PALETTES</h2><p>₹600-₹5000</p></div>
+    <div class="product"><img src="https://tse4.mm.bing.net/th?id=OIP.gRLSXhCDDxBoXoPnI0ZajgHaFj&pid=Api&P=0&h=180" alt="Product"><h2>HIGHLIGHTERS</h2><p>₹550-₹4500</p></div>
+    <div class="product"><img src="https://tse4.mm.bing.net/th?id=OIP.OnVcX5XIrtxPTC0mHyIVFgHaHa&pid=Api&P=0&h=180" alt="Product"><h2>LIPSTICKS</h2><p>₹400-₹2250</p></div>
+    <div class="product"><img src="https://tse1.mm.bing.net/th?id=OIP.R70AA51uDKh4xrLWnJMnZAHaHa&pid=Api&P=0&h=180" alt="Product"><h2>SPONGES</h2><p>₹300-₹450</p></div>
+    <div class="product"><img src="https://tse1.mm.bing.net/th?id=OIP.jFCePA2PZvi-ycVmL0S8TgHaEJ&pid=Api&P=0&h=180" alt="Product"><h2>BRUSHES</h2><p>₹500-₹800</p></div>
+
+    <div class="product"><img src="https://tse1.mm.bing.net/th?id=OIP.RXYqT8wjTJ86epGunNe0nAHaHa&pid=Api&P=0&h=180" alt="Product"><h2>BRONZERS</h2><p>₹400-₹2250</p></div>
+    <div class="product"><img src="https://tse3.mm.bing.net/th?id=OIP.pimvL9fX9HkFOpjWrVSgBAAAAA&pid=Api&P=0&h=180" alt="Product"><h2>MASCARAS</h2><p>₹500-₹800</p></div>
+    <div class="product"><img src="https://tse2.mm.bing.net/th?id=OIP.n-Tl1IMBgdpMApEpy6QEmAAAAA&pid=Api&P=0&h=180" alt="Product"><h2>LIP LINERS</h2><p>₹400-₹2250</p></div>
+    <div class="product"><img src="https://tse3.mm.bing.net/th?id=OIP.4CVkqhw9-jmPU9R-q1UyKAHaHa&pid=Api&P=0&h=180" alt="Product"><h2>EYEBROW PENCILS</h2><p>₹300-₹1500</p></div>
+    <div class="product"><img src="https://tse3.mm.bing.net/th?id=OIP.YDco9Ou972p7V9Ws8UzCewHaHa&pid=Api&P=0&h=180" alt="Product"><h2>EYELINERS</h2><p>₹400-₹2250</p></div>
+  </div>
+
+  <div class="footer">
+    <p>&copy; 2025 My Product Catalog</p>
+  </div>
+
+</body>
+</html>
+
+#styles.css
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: black;
+}
+
+.header {
+  background-color: pink ;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.footer {
+  background-color: pink;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 30px;
+}
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;}
+
+.product {
+  background-color: white;
+  border: 1px solid pink;
+  margin: 10px;
+  width: calc(20% - 20px); 
+  box-sizing: border-box;
+  padding: 10px;
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+  height: auto;
+  max-height: 120px;
+  object-fit: cover;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 1000px) {
+  .product {
+    width: calc(33.33% - 20px); 
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .product {
+    width: calc(50% - 20px); 
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .product {
+    width: 100%; 
+  }
+}

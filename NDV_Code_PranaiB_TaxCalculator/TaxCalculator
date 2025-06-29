@@ -1,0 +1,84 @@
+# Console-Based Tax Calculator: Old vs New Regime
+
+# Description: Calculates tax based on user input using Old and New tax regimes.
+
+def calculate_old_regime_tax(income):
+    """
+    Calculates tax under the Old Regime based on given slabs and deductions.
+    """
+    standard_deduction = 50000
+    deduction_80C = 150000
+    taxable_income = income - standard_deduction - deduction_80C
+
+    if taxable_income <= 250000:
+        tax = 0
+    elif taxable_income <= 500000:
+        tax = (taxable_income - 250000) * 0.05
+    elif taxable_income <= 1000000:
+        tax = (250000 * 0.05) + (taxable_income - 500000) * 0.2
+    else:
+        tax = (250000 * 0.05) + (500000 * 0.2) + (taxable_income - 1000000) * 0.3
+
+    return max(tax, 0)
+
+
+def calculate_new_regime_tax(income):
+    """
+    Calculates tax under the New Regime based on 2024-25 slabs without deductions.
+    """
+    slabs = [
+        (300000, 0),
+        (300000, 0.05),
+        (300000, 0.10),
+        (300000, 0.15),
+        (300000, 0.20),
+        (float('inf'), 0.30)
+    ]
+
+    tax = 0
+    remaining_income = income
+
+    for slab_limit, rate in slabs:
+        if remaining_income > slab_limit:
+            tax += slab_limit * rate
+            remaining_income -= slab_limit
+        else:
+            tax += remaining_income * rate
+            break
+
+    return tax
+
+
+def main():
+    while True:
+        print("\n--- Tax Deduction Calculator: Old vs New Regime ---")
+        try:
+            ctc = float(input("Enter your CTC: "))
+            bonus = float(input("Enter your Bonus: "))
+        except ValueError:
+            print("Invalid input. Please enter numeric values.")
+            continue
+
+        total_income = ctc + bonus
+        old_tax = calculate_old_regime_tax(total_income)
+        new_tax = calculate_new_regime_tax(total_income)
+
+        print(f"\nTotal Income: Rs.{int(total_income)}")
+        print(f"Old Regime Tax Deduction: Rs.{int(old_tax)}")
+        print(f"New Regime Tax Deduction: Rs.{int(new_tax)}")
+
+        if old_tax < new_tax:
+            print(f"You Save Rs.{int(new_tax - old_tax)} more using the Old Regime.")
+        elif new_tax < old_tax:
+            print(f"You Save Rs.{int(old_tax - new_tax)} more using the New Regime.")
+        else:
+            print("Both regimes result in the same tax amount.")
+
+        choice = input("\nDo you want to calculate again? (yes/no): ").lower()
+        if choice != 'yes':
+            print("Exiting the calculator. Thank you!")
+            break
+
+
+if __name__ == "__main__":
+    main()

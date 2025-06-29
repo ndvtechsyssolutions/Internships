@@ -1,0 +1,8 @@
+print("Mobile prize finder")
+y=int(input("Enter the prize: "))
+z=float(input("Enter your gst percentage in float: "))
+a=float(input("Enter your discount in percentage in float: "))
+b=float(input("Enter your additional discount in float: "))
+c=float(y)
+d=c+(c*z/100)-(c*a/100)-(c*b/100)
+print("Your total prize is :",d)

@@ -1,0 +1,85 @@
+# Student Record Management Console App (In-Memory) Created By Arnav Anand
+
+students = []  # List to store student records
+
+def add_student():
+    roll = input("Enter Roll Number: ")
+    for student in students:
+        if student['roll'] == roll:
+            print("❌ Student with this roll number already exists.")
+            return
+    name = input("Enter Name: ")
+    age = input("Enter Age: ")
+    course = input("Enter Course: ")
+    student = {"roll": roll, "name": name, "age": age, "course": course}
+    students.append(student)
+    print("✅ Student added successfully.")
+
+def display_students():
+    if not students:
+        print("No student records found.")
+        return
+    print("\n--- Student Records ---")
+    for s in students:
+        print(f"Roll: {s['roll']}, Name: {s['name']}, Age: {s['age']}, Course: {s['course']}")
+
+def search_student():
+    roll = input("Enter Roll Number to search: ")
+    for s in students:
+        if s['roll'] == roll:
+            print(f"Found: Roll: {s['roll']}, Name: {s['name']}, Age: {s['age']}, Course: {s['course']}")
+            return
+    print("❌ Student not found.")
+
+def update_student():
+    roll = input("Enter Roll Number to update: ")
+    for s in students:
+        if s['roll'] == roll:
+            print("Leave field empty to keep current value.")
+            name = input(f"New Name ({s['name']}): ") or s['name']
+            age = input(f"New Age ({s['age']}): ") or s['age']
+            course = input(f"New Course ({s['course']}): ") or s['course']
+            s.update({"name": name, "age": age, "course": course})
+            print("✅ Student updated successfully.")
+            return
+    print("❌ Student not found.")
+
+def delete_student():
+    roll = input("Enter Roll Number to delete: ")
+    for s in students:
+        if s['roll'] == roll:
+            students.remove(s)
+            print("✅ Student deleted successfully.")
+            return
+    print("❌ Student not found.")
+
+def menu():
+    while True:
+        print("\n=== Student Record Management ===")
+        print("1. Add Student")
+        print("2. Display All Students")
+        print("3. Search Student by Roll Number")
+        print("4. Update Student")
+        print("5. Delete Student")
+        print("6. Exit")
+        choice = input("Enter your choice (1-6): ")
+        
+        if choice == '1':
+            add_student()
+        elif choice == '2':
+            display_students()
+        elif choice == '3':
+            search_student()
+        elif choice == '4':
+            update_student()
+        elif choice == '5':
+            delete_student()
+        elif choice == '6':
+            print("👋 Exiting the program.")
+            break
+        else:
+            print("❌ Invalid choice. Please enter a number between 1 and 6.")
+
+# Start the app
+if __name__ == "__main__":
+    menu()
