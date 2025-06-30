@@ -1,0 +1,218 @@
+import java.util.*;
+
+class Student {
+    private int studentId;
+    private String name;
+    private String branch;
+    private int year;
+    private double marks;
+
+    public Student(int studentId, String name, String branch, int year, double marks) {
+        this.studentId = studentId;
+        this.name = name;
+        this.branch = branch;
+        this.year = year;
+        this.marks = marks;
+    }
+
+    public int getStudentId() {
+        return studentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public double getMarks() {
+        return marks;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setMarks(double marks) {
+        this.marks = marks;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + studentId + ", Name: " + name + ", Branch: " + branch +
+               ", Year: " + year + ", Marks: " + marks;
+    }
+}
+
+public class StudentManagementSystem {
+    private static HashMap<Integer, Student> students = new HashMap<>();
+    private static Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("\n===== Student Management System =====");
+            System.out.println("1. Add Student");
+            System.out.println("2. View Students");
+            System.out.println("3. Update Student");
+            System.out.println("4. Delete Student");
+            System.out.println("5. Search Student by ID");
+            System.out.println("6. Top Scorer");
+            System.out.println("7. Average Marks");
+            System.out.println("8. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = getIntInput();
+
+            switch (choice) {
+                case 1 -> addStudent();
+                case 2 -> viewStudents();
+                case 3 -> updateStudent();
+                case 4 -> deleteStudent();
+                case 5 -> searchStudentById();
+                case 6 -> displayTopScorer();
+                case 7 -> displayAverageMarks();
+                case 8 -> {
+                    System.out.println("Exiting program. Goodbye!");
+                    return;
+                }
+                default -> System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
+
+    private static void addStudent() {
+        System.out.print("Enter Student ID: ");
+        int id = getIntInput();
+        if (students.containsKey(id)) {
+            System.out.println("Student ID already exists.");
+            return;
+        }
+
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Branch: ");
+        String branch = sc.nextLine();
+
+        System.out.print("Enter Year: ");
+        int year = getIntInput();
+
+        System.out.print("Enter Marks: ");
+        double marks = getDoubleInput();
+
+        Student student = new Student(id, name, branch, year, marks);
+        students.put(id, student);
+        System.out.println("Student added successfully.");
+    }
+
+    private static void viewStudents() {
+        if (students.isEmpty()) {
+            System.out.println("No student records available.");
+        } else {
+            students.values().forEach(System.out::println);
+        }
+    }
+
+    private static void updateStudent() {
+        System.out.print("Enter Student ID to update: ");
+        int id = getIntInput();
+
+        Student student = students.get(id);
+        if (student == null) {
+            System.out.println("Student not found.");
+            return;
+        }
+
+        System.out.print("Enter new Name: ");
+        student.setName(sc.nextLine());
+
+        System.out.print("Enter new Branch: ");
+        student.setBranch(sc.nextLine());
+
+        System.out.print("Enter new Year: ");
+        student.setYear(getIntInput());
+
+        System.out.print("Enter new Marks: ");
+        student.setMarks(getDoubleInput());
+
+        System.out.println("Student record updated.");
+    }
+
+    private static void deleteStudent() {
+        System.out.print("Enter Student ID to delete: ");
+        int id = getIntInput();
+
+        if (students.remove(id) != null) {
+            System.out.println("Student removed.");
+        } else {
+            System.out.println("Student not found.");
+        }
+    }
+
+    private static void searchStudentById() {
+        System.out.print("Enter Student ID to search: ");
+        int id = getIntInput();
+
+        Student student = students.get(id);
+        if (student != null) {
+            System.out.println(student);
+        } else {
+            System.out.println("Student not found.");
+        }
+    }
+
+    private static void displayTopScorer() {
+        if (students.isEmpty()) {
+            System.out.println("No students to evaluate.");
+            return;
+        }
+
+        Student topScorer = Collections.max(students.values(), Comparator.comparingDouble(Student::getMarks));
+        System.out.println("Top Scorer: " + topScorer);
+    }
+
+    private static void displayAverageMarks() {
+        if (students.isEmpty()) {
+            System.out.println("No student data available.");
+            return;
+        }
+
+        double totalMarks = students.values().stream().mapToDouble(Student::getMarks).sum();
+        double average = totalMarks / students.size();
+        System.out.printf("Average Marks: %.2f%n", average);
+    }
+
+    private static int getIntInput() {
+        while (true) {
+            try {
+                return Integer.parseInt(sc.nextLine());
+            } catch (Exception e) {
+                System.out.print("Enter a valid integer: ");
+            }
+        }
+    }
+
+    private static double getDoubleInput() {
+        while (true) {
+            try {
+                return Double.parseDouble(sc.nextLine());
+            } catch (Exception e) {
+                System.out.print("Enter a valid number: ");
+            }
+        }
+    }
+}

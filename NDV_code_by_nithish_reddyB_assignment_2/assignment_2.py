@@ -1,0 +1,94 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import LabelEncoder
+
+# Load the dataset
+df = pd.read_csv('netflix_titles.csv')
+
+# 1. Initial Data Overview
+print("Initial Data Overview:\n", df.head())
+print("\nShape of Data:", df.shape)
+
+# 2. Missing Values
+print("\nMissing Values:\n", df.isnull().sum())
+
+# 3. Data Types
+print("\nData Types:\n", df.dtypes)
+
+# 4. Check Duplicates
+print("\nDuplicate Records:", df.duplicated().sum())
+
+# ===========================
+# --- Data Cleaning Steps ---
+# ===========================
+
+# A. Handle missing values
+# Fill missing categorical columns with mode
+cat_cols = ['director', 'cast', 'country', 'date_added', 'rating', 'duration']
+for col in cat_cols:
+    df[col] = df[col].fillna(df[col].mode()[0])
+
+# B. Drop rows with missing values in critical columns like 'title'
+df.dropna(subset=['title'], inplace=True)
+
+# C. Remove duplicate rows
+df.drop_duplicates(inplace=True)
+
+# D. Convert 'date_added' to datetime
+df['date_added'] = pd.to_datetime(df['date_added'], errors='coerce')
+
+# E. Create new column: Year Added
+df['year_added'] = df['date_added'].dt.year
+
+# ===============================
+# --- Numerical Transformations ---
+# ===============================
+
+# Example: Count words in description using NumPy
+df['description_word_count'] = df['description'].apply(lambda x: len(str(x).split()))
+
+# =============================
+# --- Filtering, Sorting, Grouping ---
+# =============================
+
+# Filter: Only Movies
+only_movies = df[df['type'] == 'Movie']
+
+# Sort: by release_year descending
+df_sorted = df.sort_values(by='release_year', ascending=False)
+
+# Group: Number of shows per country
+country_counts = df['country'].value_counts().head(10)
+
+# =====================
+# --- Summary Stats ---
+# =====================
+print("\nSummary Statistics:\n", df.describe(include='all'))
+
+# ====================
+# --- Bonus Points ---
+# ====================
+
+# 1. Visualize null values
+plt.figure(figsize=(12, 6))
+sns.heatmap(df.isnull(), cbar=False, cmap='magma')
+plt.title("Null Value Heatmap")
+plt.show()
+
+# 2. Correlation matrix (for numeric fields)
+plt.figure(figsize=(8, 6))
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap='coolwarm')
+plt.title("Correlation Matrix")
+plt.show()
+
+# 3. Apply Label Encoding for ML readiness
+
+label_encoders = {}
+for col in ['type', 'rating']:
+    le = LabelEncoder()
+    df[col] = le.fit_transform(df[col])
+    label_encoders[col] = le
+
+print("\nCleaned & Encoded Data Sample:\n", df.head())
