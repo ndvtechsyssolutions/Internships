@@ -1,5 +1,3 @@
-<img src="static/NDVTechsys_logo.ico" alt="NDVTechsys Logo" style="height: 80px; vertical-align: middle; margin-right: 20px;">
-
 # NDVTechsys Student Management System
 
 A GUI-based Python application to manage student records and track daily attendance — complete with CSV import/export, student filters, fee tracking in INR, and session persistence.
