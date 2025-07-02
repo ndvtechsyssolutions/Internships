@@ -1,0 +1,16 @@
+[
+    {
+        "student_id": "1",
+        "name": "abc",
+        "branch": "cme",
+        "year": "3rd",
+        "marks": 34.0
+    },
+    {
+        "student_id": "2",
+        "name": "ght",
+        "branch": "ece",
+        "year": "1st",
+        "marks": 59.0
+    }
+]
