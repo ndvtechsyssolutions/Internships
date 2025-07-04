@@ -1,0 +1,15 @@
+This project involved analyzing a Sales Orders Dataset using Python tools like Pandas, NumPy, SciPy, and Seaborn. The objective was to perform descriptive statistics and hypothesis testing to derive business insights.
+
+Key tasks included:
+
+Calculating summary statistics for SALES, QUANTITYORDERED, and PRICEEACH.
+
+Conducting a one-sample t-test to check if average sales equal ₹3500 — result: significant difference found.
+
+Performing ANOVA to test if sales vary by DEALSIZE — result: deal size impacts sales.
+
+Using a Chi-square test to assess association between STATUS and PRODUCTLINE — result: significant relationship.
+
+Visualizing distributions and relationships using histograms, boxplots, and heatmaps.
+
+The analysis confirmed key business assumptions and highlighted how factors like quantity and deal size affect revenue.
