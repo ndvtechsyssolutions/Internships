@@ -2,23 +2,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 class Student {
-    int S.no;
+    int serialNo;
     int rollNo;
     String name;
     String subject;
     double marks;
-    
 
-    public Student(int S.no, int rollNo, String name, String subject, double marks) {
-        this.S.no = S.no;
+    public Student(int serialNo, int rollNo, String name, String subject, double marks) {
+        this.serialNo = serialNo;
         this.rollNo = rollNo;
         this.name = name;
-        this.course = subject;
+        this.subject = subject;
         this.marks = marks;
     }
 
     public void display() {
-        System.out.println("S.No: " + S.no + ", Roll No: " + rollNo + ", Name: " + name + ", Subject: " + subject + ", Marks: " + marks);
+        System.out.println("S.No: " + serialNo + ", Roll No: " + rollNo + ", Name: " + name + ", Subject: " + subject + ", Marks: " + marks);
     }
 }
 
@@ -30,8 +29,7 @@ public class StudentManagementSystem {
         int choice;
         do {
             System.out.println("\n-- Student Management System --");
-            System.out.println("\n Management of student records");
-            System.out.println("1. Enter Student");
+            System.out.println("1. Add Student");
             System.out.println("2. Display All Students");
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
@@ -56,19 +54,23 @@ public class StudentManagementSystem {
 
     static void addStudent() {
         System.out.print("Enter S.No: ");
-        int S.no = sc.nextInt();
+        int serialNo = sc.nextInt();
         sc.nextLine();
+
         System.out.print("Enter Roll No: ");
         int rollNo = sc.nextInt();
         sc.nextLine();
+
         System.out.print("Enter Name: ");
         String name = sc.nextLine();
+
         System.out.print("Enter Subject: ");
         String subject = sc.nextLine();
+
         System.out.print("Enter Marks: ");
         double marks = sc.nextDouble();
 
-        students.add(new Student(S.no, rollNo, name, subject, marks));
+        students.add(new Student(serialNo, rollNo, name, subject, marks));
         System.out.println("Student added!");
     }
 
