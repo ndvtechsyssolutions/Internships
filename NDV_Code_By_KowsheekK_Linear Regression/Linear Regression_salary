@@ -1,0 +1,37 @@
+Title: Linear Regression for Predicting Salary from Years of Experience
+
+Goal:
+To build and evaluate a simple linear regression model in Python that predicts an employee’s salary based on their years of experience.
+
+Tasks Involved
+Data Loading & Exploration:
+
+Use a dataset (salary_data.csv) containing YearsExperience and Salary.
+
+Explore structure and basic statistics using Pandas.
+
+Visualization:
+
+Plot a scatter graph to visualize the relationship between experience and salary.
+
+Model Building:
+
+Split data into training and testing sets (e.g., 80/20).
+
+Train a simple linear regression model using sklearn.
+
+Evaluation:
+
+Predict salaries for the test set.
+
+Evaluate performance using Mean Squared Error (MSE) and R² score.
+
+Plot the regression line.
+
+Bonus Tasks
+Add error bars to show prediction confidence.
+
+Create a bar chart comparing actual vs predicted values.
+
+Allow user input to predict salary for custom years of experience.
+
