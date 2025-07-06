@@ -1,0 +1,33 @@
+# Email Spam Classification
+
+## Objective
+Classify emails as spam or ham using supervised learning techniques and evaluate performance using various metrics.
+
+## Dataset
+- **Source**: Uploaded `.csv`
+- **Columns**:
+  - `text`: Email content
+  - `label_num`: 0 = ham, 1 = spam
+
+## Libraries Used
+- pandas, numpy, seaborn, sklearn, matplotlib
+
+## Models Compared
+- Logistic Regression
+- Random Forest
+- Random Forest with GridSearchCV
+
+## Evaluation Metrics
+- Accuracy
+- Confusion Matrix
+- ROC Curve
+- Precision, Recall, F1
+
+##  Bonus Achievements
+- GridSearchCV Hyperparameter Tuning
+-  Feature Importance Visualization
+
+## Results
+- Logistic Regression Accuracy: ~98%
+- Random Forest Accuracy: ~98.5%
+- Tuned Random Forest (GridSearch): Slight performance boost
