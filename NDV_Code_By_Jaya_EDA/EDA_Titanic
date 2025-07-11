@@ -1,0 +1,57 @@
+Project Summary – Exploratory Data Analysis on Titanic Dataset
+This project performs a detailed Exploratory Data Analysis (EDA) on the Titanic dataset to uncover patterns and insights about passenger survival during the historic maritime disaster. The dataset includes demographic, class, fare, and survival information for passengers.
+
+✅ Key Steps Performed
+Data Loading
+
+Loaded the Titanic dataset (tested.csv) using Pandas.
+
+Data Cleaning
+
+Handled missing values in Age and Embarked.
+
+Dropped the Cabin column due to excessive nulls.
+
+Removed duplicate records.
+
+Summary Statistics
+
+Used info(), describe(), and value_counts() for structural insights.
+
+Visualizations
+
+Plotted histograms (Age), box plots (Age vs Pclass), and count plots (Survival vs Sex).
+
+Used violin plots to show survival trends by class and age.
+
+Generated a pair plot and correlation heatmap to study variable relationships.
+
+Group Analysis
+
+Used groupby() to compare survival rates across gender and passenger class.
+
+Feature Engineering
+
+Created a new FamilySize column (SibSp + Parch + 1) to evaluate family impact on survival.
+
+Top 5 Insights Documented
+
+Listed major findings from the analysis in markdown for interpretability.
+
+🌟 Top 5 Insights
+Females had a significantly higher survival rate than males.
+
+First-class passengers were more likely to survive than lower classes.
+
+Younger children had higher survival odds.
+
+Small family sizes (2–4) improved chances of survival.
+
+Higher ticket fares correlated with better survival likelihood.
+
+🧩 Tools Used
+Python (Jupyter Notebook)
+
+Pandas, NumPy
+
+Seaborn, Matplotlib

@@ -1,0 +1,65 @@
+Summary of Assignment 6: Linear Regression for Predicting Salary
+Objective:
+To build a simple linear regression model using Python that predicts an employee's salary based on their years of experience.
+
+Dataset Used:
+Name: salary_data.csv
+
+Columns:
+
+YearsExperience – independent variable (X)
+
+Salary – dependent variable (y)
+
+Steps Performed:
+Data Loading:
+
+Loaded CSV using Pandas.
+
+Data Visualization:
+
+Created a scatter plot to observe the relationship between experience and salary.
+
+Train-Test Split:
+
+Split the dataset into training and testing sets (80% train, 20% test).
+
+Model Training:
+
+Applied Linear Regression using scikit-learn.
+
+Prediction:
+
+Predicted salaries on the test set.
+
+Evaluation:
+
+Evaluated model using:
+
+Mean Squared Error (MSE)
+
+R² Score
+
+Plotting Regression Line:
+
+Visualized how well the model fits the data.
+
+Bonus Features:
+Comparison Plot:
+
+Bar chart showing actual vs predicted salaries.
+
+User Input Prediction:
+
+Allowed user to input years of experience and get a salary prediction.
+
+Model Results (Sample):
+Intercept: ~25,000
+
+Coefficient: ~9,000 per year of experience
+
+R² Score: ~0.95 (indicates excellent fit)
+
+Conclusion:
+The regression model effectively captures the linear relationship between experience and salary, making it a reliable tool for salary prediction in this dataset.
+
