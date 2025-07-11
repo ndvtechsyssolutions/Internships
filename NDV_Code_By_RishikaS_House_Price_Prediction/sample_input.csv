@@ -1,0 +1,6 @@
+area,bedrooms,bathrooms,stories,mainroad,guestroom,basement,hotwaterheating,airconditioning,parking,prefarea,furnishingstatus,location
+3450,3,1,1,yes,no,yes,no,no,2,no,unfurnished,countryside
+4960,2,1,1,yes,no,no,no,no,0,no,unfurnished,downtown
+1950,3,2,2,yes,no,yes,no,no,0,yes,unfurnished,downtown
+1950,3,1,1,no,no,no,yes,no,0,no,unfurnished,suburb
+2135,3,2,2,no,no,no,no,no,0,no,unfurnished,suburb
