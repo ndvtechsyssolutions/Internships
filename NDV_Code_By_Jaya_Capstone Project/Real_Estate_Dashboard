@@ -1,0 +1,43 @@
+Project Overview
+A fun and beginner-friendly Streamlit web app that predicts house prices based on neighborhood and housing features. It uses a Random Forest regression model trained on the Boston Housing dataset.
+
+Objective
+To help even a 10-year-old understand how features like rooms, pollution, taxes, and schools affect property price — and to predict the price in Indian Rupees (₹).
+
+How to Use
+Install dependencies:
+pip install -r requirements.txt
+
+Train the model:
+python model_train.py
+
+Launch the app:
+streamlit run app.py
+
+Inputs Explained
+Input	What it Means
+Crime Rate	Safety of neighborhood
+Rooms	Size of house
+Air Quality	Pollution level
+Distance to Amenities	Access to shops/schools
+Taxes, Diversity, River, etc.	Area features
+
+Each input is explained clearly using ranges (e.g., “0 = safe”, “10 = many rooms”).
+
+Output
+The app shows predicted home price in INR, e.g.:
+Your predicted house price is: ₹ 45,23,120.00
+
+
+Project Files
+app.py – Streamlit app
+
+model_train.py – ML training script
+
+boston_rf_model.pkl – Trained model
+
+boston_scaler.pkl – Scaler
+
+requirements.txt – Library list
+
+README.md – This guide
