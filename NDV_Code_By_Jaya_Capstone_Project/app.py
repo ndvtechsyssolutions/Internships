@@ -9,9 +9,7 @@ from sklearn.preprocessing import StandardScaler
 
 # Auto-train if model not found
 if not os.path.exists("boston_rf_model.pkl") or not os.path.exists("boston_scaler.pkl"):
-df = pd.read_csv(os.path.join(os.path.dirname(__file__), "real_estate.csv"))
-  # Adjust path
-
+    df = pd.read_csv(os.path.join(os.path.dirname(__file__), "real_estate.csv"))  # ✅ Properly indented
     features = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT']
     X = df[features]
     y = df["MEDV"]
@@ -48,5 +46,5 @@ if st.button("🎯 Predict My House Price"):
     input_data = np.array([[CRIM, ZN, INDUS, CHAS, NOX, RM, AGE, DIS, RAD, TAX, PTRATIO, B, LSTAT]])
     input_scaled = scaler.transform(input_data)
     prediction = model.predict(input_scaled)
-    price_inr = prediction[0] * 1000 * 83  # USD to INR approx
+    price_inr = prediction[0] * 1000 * 83  # Convert to INR (approx)
     st.success(f"💰 Your predicted house price is: ₹ {price_inr:,.2f}")
