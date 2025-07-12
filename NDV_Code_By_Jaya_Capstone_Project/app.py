@@ -9,7 +9,8 @@ from sklearn.preprocessing import StandardScaler
 
 # Auto-train if model not found
 if not os.path.exists("boston_rf_model.pkl") or not os.path.exists("boston_scaler.pkl"):
-    df = pd.read_csv("real_estate.csv")
+    df = pd.read_csv("real_estate.csv")  # Adjust path
+
     features = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT']
     X = df[features]
     y = df["MEDV"]
