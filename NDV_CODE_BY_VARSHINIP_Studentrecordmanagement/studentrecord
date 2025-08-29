@@ -1,0 +1,124 @@
+import json
+import os
+
+class Student:
+    def __init__(self, name, roll_no, course, marks):
+        self.name = name
+        self.roll_no = roll_no
+        self.course = course
+        self.marks = marks
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "roll_no": self.roll_no,
+            "course": self.course,
+            "marks": self.marks
+        }
+
+class StudentManager:
+    FILE_NAME = "student.json"
+
+    def load_students(self):
+        if not os.path.exists(self.FILE_NAME):
+            return []
+        with open(self.FILE_NAME, "r") as file:
+            return json.load(file)
+
+    def save_students(self, students):
+        with open(self.FILE_NAME, "w") as file:
+            json.dump(students, file, indent=4)
+
+    def add_student(self):
+        roll_no = int(input("Enter the roll number: "))
+        name = input("Enter the name: ")
+        course = input("Enter the course: ")
+        marks = float(input("Enter the marks: "))
+
+        student = Student(name, roll_no, course, marks)
+        students = self.load_students()
+        students.append(student.to_dict())
+        self.save_students(students)
+        print("Student added successfully.")
+
+    def display_students(self):
+        students = self.load_students()
+        if not students:
+            print("No student records found.")
+            return
+        for s in students:
+            print(f"\nRoll No: {s['roll_no']}")
+            print(f"Name: {s['name']}")
+            print(f"Course: {s['course']}")
+            print(f"Marks: {s['marks']}")
+            print("-" * 30)
+
+    def search_student(self):
+        roll = int(input("Enter the roll number to search: "))
+        students = self.load_students()
+        for s in students:
+            if s['roll_no'] == roll:
+                print("\nStudent found:")
+                print(f"Name: {s['name']}")
+                print(f"Course: {s['course']}")
+                print(f"Marks: {s['marks']}")
+                return
+        print("Student not found.")
+
+    def delete_student(self):
+        roll = int(input("Enter the roll number to delete: "))
+        students = self.load_students()
+        updated_students = [s for s in students if s['roll_no'] != roll]
+        if len(updated_students) == len(students):
+            print("Student not found.")
+        else:
+            self.save_students(updated_students)
+            print("Student deleted successfully.")
+
+    def update_student(self):
+        roll = int(input("Enter the roll number to update: "))
+        students = self.load_students()
+        for s in students:
+            if s['roll_no'] == roll:
+                print("Current details:")
+                print(f"Name: {s['name']}, Course: {s['course']}, Marks: {s['marks']}")
+                s['name'] = input("Enter new name: ")
+                s['course'] = input("Enter new course: ")
+                s['marks'] = float(input("Enter new marks: "))
+                self.save_students(students)
+                print("Student updated successfully.")
+                return
+        print("Student not found.")
+
+    def menu(self):
+        while True:
+            print("\n--- Student Record Management ---")
+            print("1. Add student")
+            print("2. Display all students")
+            print("3. Search student")
+            print("4. Delete student")
+            print("5. Update student")
+            print("0. Exit")
+
+            choice = input("Enter your choice: ")
+
+            if choice == "1":
+                self.add_student()
+            elif choice == "2":
+                self.display_students()
+            elif choice == "3":
+                self.search_student()
+            elif choice == "4":
+                self.delete_student()
+            elif choice == "5":
+                self.update_student()
+            elif choice == "0":
+                print("Exiting program.")
+                break
+            else:
+                print("Invalid choice, try again.")
+
+# Run program
+if __name__ == '__main__':
+    manager = StudentManager()
+    manager.menu()
