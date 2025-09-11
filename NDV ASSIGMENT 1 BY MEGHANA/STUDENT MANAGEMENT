@@ -1,0 +1,157 @@
+import json
+import os
+
+class Student:
+    """
+    Represents a student record with ID, Name, Branch, Year, and Marks.
+    """
+    def __init__(self, student_id, name, branch, year, marks):
+        self.student_id = student_id
+        self.name = name
+        self.branch = branch
+        self.year = year
+        self.marks = marks
+
+    def to_dict(self):
+        """Converts student object to a dictionary for JSON serialization."""
+        return {
+            "student_id": self.student_id,
+            "name": self.name,
+            "branch": self.branch,
+            "year": self.year,
+            "marks": self.marks
+        }
+
+    @staticmethod
+    def from_dict(data):
+        """Creates a Student object from a dictionary."""
+        return Student(data["student_id"], data["name"], data["branch"], data["year"], data["marks"])
+
+class StudentManager:
+    """
+    Manages a collection of student records, including adding, viewing, updating,
+    deleting, and persisting data to a JSON file.
+    """
+    def __init__(self, filename="students.json"):
+        self.filename = filename
+        self.students = self._load_students()
+
+    def _load_students(self):
+        """Loads student records from the JSON file."""
+        if os.path.exists(self.filename):
+            with open(self.filename, 'r') as f:
+                try:
+                    data = json.load(f)
+                    return [Student.from_dict(item) for item in data]
+                except json.JSONDecodeError:
+                    return []
+        return []
+
+    def _save_students(self):
+        """Saves current student records to the JSON file."""
+        with open(self.filename, 'w') as f:
+            json.dump([s.to_dict() for s in self.students], f, indent=4)
+
+    def add_student(self, student_id, name, branch, year, marks):
+        """Adds a new student record."""
+        if any(s.student_id == student_id for s in self.students):
+            print(f"Error: Student with ID {student_id} already exists.")
+            return False
+        student = Student(student_id, name, branch, year, marks)
+        self.students.append(student)
+        self._save_students()
+        print(f"Student {name} added successfully.")
+        return True
+
+    def view_students(self):
+        """Displays all student records in a tabular format."""
+        if not self.students:
+            print("No student records available.")
+            return
+
+        print("\n--- Student Records ---")
+        print(f"{'ID':<10} {'Name':<20} {'Branch':<15} {'Year':<8} {'Marks':<8}")
+        print("-" * 65)
+        for student in self.students:
+            print(f"{student.student_id:<10} {student.name:<20} {student.branch:<15} {student.year:<8} {student.marks:<8}")
+        print("-" * 65)
+
+    def update_student(self, student_id, new_name=None, new_branch=None, new_year=None, new_marks=None):
+        """Updates an existing student record."""
+        for student in self.students:
+            if student.student_id == student_id:
+                if new_name:
+                    student.name = new_name
+                if new_branch:
+                    student.branch = new_branch
+                if new_year:
+                    student.year = new_year
+                if new_marks is not None:
+                    student.marks = new_marks
+                self._save_students()
+                print(f"Student ID {student_id} updated successfully.")
+                return True
+        print(f"Error: Student with ID {student_id} not found.")
+        return False
+
+    def delete_student(self, student_id):
+        """Deletes a student record."""
+        initial_len = len(self.students)
+        self.students = [s for s in self.students if s.student_id != student_id]
+        if len(self.students) < initial_len:
+            self._save_students()
+            print(f"Student ID {student_id} deleted successfully.")
+            return True
+        print(f"Error: Student with ID {student_id} not found.")
+        return False
+
+def display_menu():
+    """Displays the main menu options to the user."""
+    print("\n--- Student Record Management ---")
+    print("1. Add Student")
+    print("2. View Students")
+    print("3. Update Student")
+    print("4. Delete Student")
+    print("5. Exit")
+
+def main():
+    """Main function to run the console application."""
+    manager = StudentManager()
+
+    while True:
+        display_menu()
+        choice = input("Enter your choice: ")
+
+        if choice == '1':
+            student_id = input("Enter Student ID: ")
+            name = input("Enter Name: ")
+            branch = input("Enter Branch: ")
+            year = input("Enter Year: ")
+            try:
+                marks = float(input("Enter Marks: "))
+            except ValueError:
+                print("Invalid marks. Please enter a number.")
+                continue
+            manager.add_student(student_id, name, branch, year, marks)
+        elif choice == '2':
+            manager.view_students()
+        elif choice == '3':
+            student_id = input("Enter Student ID to update: ")
+            print("Enter new values (leave blank to keep current):")
+            new_name = input("New Name: ") or None
+            new_branch = input("New Branch: ") or None
+            new_year = input("New Year: ") or None
+            new_marks_input = input("New Marks: ")
+            new_marks = float(new_marks_input) if new_marks_input else None
+            manager.update_student(student_id, new_name, new_branch, new_year, new_marks)
+        elif choice == '4':
+            student_id = input("Enter Student ID to delete: ")
+            manager.delete_student(student_id)
+        elif choice == '5':
+            print("Exiting application. Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
