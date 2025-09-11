@@ -1,0 +1,59 @@
+import pandas as pd
+import numpy as np
+import streamlit as st
+import joblib
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+
+# Load and clean data
+@st.cache_data
+def load_data():
+    df = pd.read_csv("Bengaluru_House_Data.csv")
+    df = df.dropna(subset=["location", "total_sqft", "bath", "price"])
+    df = df[df["total_sqft"].apply(lambda x: str(x).replace("-", "").replace("+", "").isdigit())]
+    df["total_sqft"] = pd.to_numeric(df["total_sqft"], errors='coerce')
+    df = df.dropna(subset=["total_sqft"])
+    df["bhk"] = df["size"].apply(lambda x: int(x.split(' ')[0]) if isinstance(x, str) else 0)
+    return df[["location", "total_sqft", "bath", "bhk", "price"]]
+
+def train_model(df):
+    X = df.drop("price", axis=1)
+    y = df["price"]
+    categorical = ["location"]
+    numeric = ["total_sqft", "bath", "bhk"]
+
+    preprocessor = ColumnTransformer([
+        ("cat", OneHotEncoder(handle_unknown="ignore"), categorical)
+    ], remainder="passthrough")
+
+    pipeline = Pipeline([
+        ("prep", preprocessor),
+        ("model", RandomForestRegressor(n_estimators=100, random_state=42))
+    ])
+
+    pipeline.fit(X, y)
+    return pipeline, X
+
+def main():
+    st.title("🏠 Real Estate Price Predictor")
+
+    df = load_data()
+    model, X = train_model(df)
+
+    location = st.selectbox("📍 Select Location", sorted(df["location"].unique()))
+    sqft = st.number_input("📐 Total Square Feet", 500.0, 10000.0, 1000.0)
+    bath = st.slider("🛁 Bathrooms", 1, 10, 2)
+    bhk = st.slider("🛏️ BHK", 1, 6, 2)
+
+    if st.button("🔮 Predict Price"):
+        input_df = pd.DataFrame([[location, sqft, bath, bhk]], columns=X.columns)
+        prediction = model.predict(input_df)[0]
+        st.success(f"💰 Estimated Price: ₹ {round(prediction, 2)} Lakhs")
+
+if __name__ == "__main__":
+    main()
+
+
