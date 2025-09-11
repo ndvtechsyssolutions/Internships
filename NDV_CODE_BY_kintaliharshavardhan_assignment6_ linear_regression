@@ -1,0 +1,66 @@
+from google.colab import drive
+drive.mount("/content/drive")
+#import libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+#read
+df = pd.read_csv('/content/drive/MyDrive/Data/Salary_Data.csv')
+print("First few records:")
+print(df.head())
+print("\nDataset statistics:")
+print(df.describe())
+#Visualizing data
+plt.figure(figsize=(8,6))
+sns.scatterplot(x='YearsExperience', y='Salary', data=df)
+plt.title('Years of Experience vs Salary')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.grid(True)
+plt.show()
+X = df[['YearsExperience']]
+y = df['Salary']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+model = LinearRegression()
+model.fit(X_train, y_train)
+#predictionstest data
+y_pred = model.predict(X_test)
+
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+print(f"\nMean Squared Error: {mse}")
+print(f"R² Score: {r2}")
+#plot regression line
+plt.figure(figsize=(8,6))
+plt.scatter(X, y, color='blue', label='Data Points')
+plt.plot(X, model.predict(X), color='red', label='Regression Line')
+plt.title('Regression Line Over Data')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.legend()
+plt.grid(True)
+plt.show()
+#Adding errorbars
+std_error = np.std(y_test - y_pred)
+plt.figure(figsize=(8,6))
+plt.errorbar(X_test.values.flatten(), y_pred, yerr=std_error, fmt='o', label='Prediction with Error Bars')
+plt.scatter(X_test, y_test, color='green', label='Actual Values')
+plt.xlabel('Years of Experience')
+plt.ylabel('Salary')
+plt.title('Error Bar Plot')
+plt.legend()
+plt.grid(True)
+plt.show()
+#Compare actual,predicted salaries using bar charyt
+compare_df = pd.DataFrame({'Actual': y_test.values, 'Predicted': y_pred})
+compare_df.reset_index(drop=True, inplace=True)
+compare_df.plot(kind='bar', figsize=(10,6))
+plt.title('Actual and Predicted Salaries')
+plt.xlabel('Sample')
+plt.ylabel('Salary')
+plt.grid(True)
+plt.show()

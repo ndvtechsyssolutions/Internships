@@ -1,0 +1,102 @@
+#importlibrariesand drive
+from google.colab import drive
+drive.mount("/content/drive")
+
+#Load_dataset
+df = pd.read_csv('/content/drive/MyDrive/Data/sales_data_sample.csv', encoding='latin1')
+
+#import libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import ttest_1samp, ttest_ind, chi2_contingency, f_oneway
+
+print("First 5 rows of the dataset:")
+print(df.head())
+print("\nDataset structure:")
+print(df.info())
+
+
+print("\nSummary Statistics:")
+print(df.describe())
+
+#Visualizing_sales_distribution
+plt.figure(figsize=(8, 5))
+sns.histplot(df['SALES'], kde=True)
+plt.title("Sales Distribution")
+plt.xlabel("Sales")
+plt.ylabel("Frequency")
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(8, 5))
+sns.boxplot(y=df['SALES'])
+plt.title("Boxplot of Sales")
+plt.tight_layout()
+plt.show()
+
+#Hypothesis t-test
+sales_data = df['SALES'].dropna()
+one_sample_test = ttest_1samp(sales_data, 7000)
+print("\nOne Sample t-test")
+print("Test Statistic:", one_sample_test.statistic)
+print("p-value:", one_sample_test.pvalue)
+if one_sample_test.pvalue < 0.05:
+    print("Conclusion: Reject the null hypothesis.")
+else:
+    print("Conclusion: Fail to reject the null hypothesis.")
+
+#Hypothesis - Sample t-test
+#Null_Hypothesis=Mean sales of Classic Cars and Motorcycles are equal
+#Alternative_Hypothesis=Mean sales are different between the two
+classic = df[df['PRODUCTLINE'] == 'Classic Cars']['SALES'].dropna()
+motorcycle = df[df['PRODUCTLINE'] == 'Motorcycles']['SALES'].dropna()
+two_sample_test = ttest_ind(classic, motorcycle, equal_var=False)
+print("\nTwo Sample t-test")
+print("Test Statistic:", two_sample_test.statistic)
+print("p-value:", two_sample_test.pvalue)
+if two_sample_test.pvalue < 0.05:
+    print("Conclusion: Reject the null hypothesis.")
+else:
+    print("Conclusion: Fail to reject the null hypothesis.")
+
+#Chi-Square Test:ProductLine vs Country
+#NullHypothesis=ProductLine and Country are independent
+#AlternativeHypothesis=ProductLine and Country are dependent
+table = pd.crosstab(df['PRODUCTLINE'], df['COUNTRY'])
+chi_stat, p_value, degrees_freedom, expected_freq = chi2_contingency(table)
+print("\nChi-Square Test")
+print("Chi-square Statistic:", chi_stat)
+print("p-value:", p_value)
+if p_value < 0.05:
+    print("Conclusion: Reject the null hypothesis.")
+else:
+    print("Conclusion: Fail to reject the null hypothesis.")
+
+#ANOVA - Sales across product lines
+#Null Hypothesis=All group means are equal
+#alternative Hypothesis=At least one group mean is different
+groups = [g['SALES'].dropna() for _, g in df.groupby('PRODUCTLINE') if not g['SALES'].dropna().empty]
+anova_test = f_oneway(*groups)
+print("\nANOVA Test")
+print("F-statistic:", anova_test.statistic)
+print("p-value:", anova_test.pvalue)
+if anova_test.pvalue < 0.05:
+    print("Conclusion: Reject the null hypothesis.")
+else:
+    print("Conclusion: Fail to reject the null hypothesis.")
+
+#Correlation Analysis - Heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap")
+plt.tight_layout()
+plt.show()
+
+#Pivot-Table- Average sales by product line and year
+df['YEAR_ID'] = df['YEAR_ID'].astype(str)
+avg_sales_pivot = pd.pivot_table(df, values='SALES', index='PRODUCTLINE', columns='YEAR_ID', aggfunc='mean')
+print("\nAverage Sales by Product Line and Year")
+print(avg_sales_pivot)
+

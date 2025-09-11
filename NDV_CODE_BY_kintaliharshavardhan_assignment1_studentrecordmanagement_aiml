@@ -1,0 +1,169 @@
+import json
+import os
+
+class Student:
+    def __init__(self, name, studentid, marks, branch, year):
+        self.name = name
+        self.studentid = studentid
+        self.marks = marks
+        self.branch = branch
+        self.year = year
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "studentid": self.studentid,
+            "marks": self.marks,
+            "branch": self.branch,
+            "year": self.year
+        }
+
+FILE_NAME = "students.json"
+
+def load_students():
+    if not os.path.exists(FILE_NAME):
+        return []
+    try:
+        with open(FILE_NAME, "r") as file:
+            students = json.load(file)
+            if isinstance(students, list):
+                # Only keep students with all required fields
+                return [s for s in students if isinstance(s, dict) and 'studentid' in s]
+            return []
+    except json.JSONDecodeError:
+        print("Warning: Corrupted students.json file. Starting fresh.")
+        return []
+
+def save_students(students):
+    with open(FILE_NAME, "w") as file:
+        json.dump(students, file, indent=4)
+
+def add_students():
+    try:
+        studentid = int(input("Enter the student id No: "))
+        name = input("Enter student Name: ")
+        year = int(input("Enter the student year: "))
+        branch = input("Enter student branch: ")
+        marks = float(input("Enter student Marks: "))
+    except ValueError:
+        print("Invalid input. Please enter correct data types.")
+        return
+
+    student_obj = Student(name, studentid, marks, branch, year)
+    student_list = load_students()
+    student_list.append(student_obj.to_dict())
+    save_students(student_list)
+    print("Student added successfully.")
+
+def display_students():
+    students = load_students()
+    if not students:
+        print("No students data found.")
+        return
+    for s in students:
+        print(f"\nStudentid: {s['studentid']}")
+        print(f"Name: {s['name']}")
+        print(f"Marks: {s['marks']}")
+        print(f"Branch: {s['branch']}")
+        print(f"Year: {s['year']}")
+        print("-" * 30)
+
+def search_students():
+    try:
+        id = int(input("Enter id no to search: "))
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        return
+
+    students = load_students()
+    for s in students:
+        if s.get('studentid') == id:
+            print("\nStudent found")
+            print(f"Name: {s['name']}")
+            print(f"Marks: {s['marks']}")
+            print(f"Branch: {s['branch']}")
+            print(f"Year: {s['year']}")
+            return
+    print("Student not found")
+
+def delete_students():
+    try:
+        id = int(input("Enter the id no to delete: "))
+    except ValueError:
+        print("Invalid id number. Please enter a valid integer.")
+        return
+
+    students = load_students()
+    updated = [s for s in students if s.get('studentid') != id]
+    if len(students) == len(updated):
+        print("Student not found.")
+    else:
+        save_students(updated)
+        print("Student deleted successfully.")
+
+def update_students():
+    try:
+        id = int(input("Enter id no to update: "))
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        return
+
+    students = load_students()
+    for s in students:
+        if s.get('studentid') == id:
+            print("Current details:")
+            print(f"Name: {s['name']}, Branch: {s['branch']}, Marks: {s['marks']}, Year: {s['year']}")
+            s['name'] = input("Enter new name: ")
+            s['branch'] = input("Enter new branch: ")
+            try:
+                s['marks'] = float(input("Enter new marks: "))
+                s['year'] = int(input("Enter new year: "))
+            except ValueError:
+                print("Invalid input. Update failed.")
+                return
+            save_students(students)
+            print("Student updated successfully.")
+            return
+    print("Student not found")
+
+# Optional: use this once if file is corrupted
+def reset_students_file():
+    if os.path.exists(FILE_NAME):
+        os.remove(FILE_NAME)
+        print("Corrupted students.json file removed.")
+
+def menu():
+    while True:
+        print("\n--- Students Record Management ---")
+        print("1. Add Student")
+        print("2. Display All Students")
+        print("3. Search Student")
+        print("4. Delete Student")
+        print("5. Update Student")
+        print("0. Exit")
+
+        try:
+            choice = int(input("Enter your choice: "))
+        except ValueError:
+            print("Invalid choice. Please enter a number.")
+            continue
+
+        if choice == 1:
+            add_students()
+        elif choice == 2:
+            display_students()
+        elif choice == 3:
+            search_students()
+        elif choice == 4:
+            delete_students()
+        elif choice == 5:
+            update_students()
+        elif choice == 0:
+            print("Exiting program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == '__main__':
+    # reset_students_file()  # Uncomment this once if file is corrupted
+    menu()
