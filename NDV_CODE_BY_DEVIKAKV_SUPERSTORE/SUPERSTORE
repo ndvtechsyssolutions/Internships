@@ -1,0 +1,64 @@
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from scipy import stats
+import warnings
+warnings.filterwarnings("ignore")
+
+# 📥 Load Dataset
+df = pd.read_csv("/kaggle/input/ssuper/Sample - Superstore.csv", encoding_errors='ignore')
+
+df.head()
+# Check basic info
+df.info()
+
+# Check for missing values
+df.isnull().sum()
+
+# Drop duplicates if any
+df.drop_duplicates(inplace=True)
+# Summary Stats
+df.describe()
+
+# Mode
+df.mode().iloc[0]
+
+# Sales stats by Category
+df.groupby('Category')['Sales'].describe()
+east_sales = df[df['Region'] == 'East']['Sales']
+west_sales = df[df['Region'] == 'West']['Sales']
+
+t_stat, p_val = stats.ttest_ind(east_sales, west_sales)
+
+print("T-statistic:", t_stat)
+print("P-value:", p_val)
+print("Result:", "Reject H₀" if p_val < 0.05 else "Fail to reject H₀")
+contingency = pd.crosstab(df['Segment'], df['Ship Mode'])
+chi2, p, dof, expected = stats.chi2_contingency(contingency)
+
+print("Chi-square:", chi2)
+print("P-value:", p)
+print("Result:", "Reject H₀" if p < 0.05 else "Fail to reject H₀")
+# Histogram of Sales
+sns.histplot(df['Sales'], kde=True)
+plt.title("Sales Distribution")
+plt.show()
+
+# Boxplot of Sales by Region
+sns.boxplot(x='Region', y='Sales', data=df)
+plt.title("Sales by Region")
+plt.show()
+
+# Countplot of Ship Mode
+sns.countplot(x='Ship Mode', data=df, hue='Segment')
+plt.title("Ship Mode vs Segment")
+plt.show()
+# Correlation Heatmap (numerical columns only)
+num_cols = df.select_dtypes(include=['number'])
+sns.heatmap(num_cols.corr(), annot=True, cmap='coolwarm')
+plt.title('Correlation Heatmap')
+plt.show()
+
+# Average Sales by Category and Segment
+df.pivot_table(values='Sales', index='Category', columns='Segment', aggfunc='mean')
