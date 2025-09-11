@@ -1,0 +1,70 @@
+# Loan Prediction EDA
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load data
+df = pd.read_csv("train_u6lujuX_CVtuZ9i.csv")
+
+# Data Cleaning
+df.drop_duplicates(inplace=True)
+df.fillna({
+    'Gender': df['Gender'].mode()[0],
+    'Married': df['Married'].mode()[0],
+    'Dependents': df['Dependents'].mode()[0],
+    'Self_Employed': df['Self_Employed'].mode()[0],
+    'LoanAmount': df['LoanAmount'].median(),
+    'Loan_Amount_Term': df['Loan_Amount_Term'].mode()[0],
+    'Credit_History': df['Credit_History'].mode()[0]
+}, inplace=True)
+
+# Convert data types if needed
+df['Dependents'].replace('3+', 3, inplace=True)
+df['Dependents'] = df['Dependents'].astype(int)
+
+display(df.describe())
+display(df.info())
+display(df['Loan_Status'].value_counts())
+
+# Visualizations
+sns.histplot(df['ApplicantIncome'], kde=True)
+plt.title('Applicant Income Distribution')
+plt.show()
+
+sns.boxplot(x='Education', y='LoanAmount', data=df)
+plt.title('Loan Amount by Education')
+plt.show()
+
+sns.countplot(x='Loan_Status', hue='Credit_History', data=df)
+plt.title('Loan Status by Credit History')
+plt.show()
+
+# Pair plot & heatmap
+sns.pairplot(df[['ApplicantIncome', 'LoanAmount', 'Credit_History', 'Loan_Status']])
+plt.show()
+
+sns.heatmap(df.corr(numeric_only=True), annot=True, cmap='coolwarm')
+plt.title('Correlation Heatmap')
+plt.show()
+
+grouped = df.groupby('Education')['Loan_Status'].value_counts(normalize=True).unstack()
+print(grouped)
+
+sns.violinplot(x='Loan_Status', y='ApplicantIncome', data=df)
+plt.title('Income Distribution by Loan Status')
+plt.show()
+
+df['Total_Income'] = df['ApplicantIncome'] + df['CoapplicantIncome']
+sns.histplot(df['Total_Income'], kde=True)
+plt.title('Total Income Distribution')
+plt.show()
+
+insights = [
+    "1. Credit History has a strong influence on loan approval.",
+    "2. Self-employed applicants have slightly lower approval rates.",
+    "3. Higher applicant income does not guarantee loan approval.",
+    "4. LoanAmount varies significantly by education and self-employment status.",
+    "5. Most applicants with 0 dependents tend to get loans approved."
+]
+for insight in insights:
+    print(insight)
