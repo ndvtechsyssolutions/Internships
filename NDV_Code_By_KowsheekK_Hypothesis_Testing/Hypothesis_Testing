@@ -1,0 +1,19 @@
+The assignment analyzes a sales dataset using descriptive statistics and hypothesis testing
+
+The average sales amount is approximately 8540
+
+The most frequent region in the dataset is the South
+
+Sales data is right-skewed with most transactions below 10000
+
+A t-test shows a significant difference in sales between online and offline customers with a p-value of 0.021
+
+A chi-square test indicates that product category preferences vary by region with a p-value of 0.0009
+
+Boxplots show that online customers have more variable spending
+
+Heatmaps reveal a moderate correlation between discount and sales
+
+The analysis concludes that customer type and region significantly influence sales patterns
+
+These insights can help improve marketing strategies and inventory planning
