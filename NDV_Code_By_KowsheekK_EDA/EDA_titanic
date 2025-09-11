@@ -1,0 +1,27 @@
+Assignment 4 Summary: Exploratory Data Analysis (EDA)
+Objective:
+Perform EDA on the Titanic dataset to uncover insights, detect patterns, and understand data structure.
+
+Key Requirements:
+Dataset Choice: Titanic (from Kaggle).
+
+Data Handling:
+
+Load using Pandas.
+
+Clean data: handle missing values, fix data types, remove duplicates.
+
+Descriptive Statistics:
+
+Use describe(), info(), value_counts().
+
+Visualization:
+
+Distributions: histograms, box plots, count plots.
+
+Relationships: pair plots, correlation heatmaps.
+
+Group Analysis:
+
+Use groupby() to compare survival/loan status across features.
+
