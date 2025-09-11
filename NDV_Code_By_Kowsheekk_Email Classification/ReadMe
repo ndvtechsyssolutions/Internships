@@ -1,0 +1,51 @@
+# Loan Default Prediction using Supervised Machine Learning
+
+##  Objective
+The objective of this project is to build a machine learning classification model that can predict whether a customer is likely to **default on a loan**. This helps financial institutions make data-driven decisions for loan approvals.
+
+---
+
+##  Dataset
+The dataset used is uploaded from a CSV file named `3055fc12-4302-4fa2-b386-02bafce87765.csv`.
+
+###  Features:
+- Numerical and categorical columns (details depend on your dataset).
+- The target column is assumed to be `default` (binary: 0 = no default, 1 = default).
+
+---
+
+## Data Preprocessing
+- **Missing Values:** Dropped rows with missing values.
+- **Categorical Encoding:** One-hot encoding used for categorical columns.
+- **Feature Scaling:** StandardScaler used for normalizing numerical data.
+- **Train-Test Split:** Dataset split into 80% training and 20% testing.
+
+---
+
+##  Models Used
+Three classification models were trained and evaluated:
+
+- Logistic Regression
+- Decision Tree Classifier
+- Random Forest Classifier
+
+---
+
+## Evaluation Metrics
+Each model was evaluated using the following metrics:
+- **Accuracy**
+- **Precision**
+- **Recall**
+- **F1-Score**
+- **Confusion Matrix**
+- **ROC Curve and AUC Score**
+
+---
+
+## Hyperparameter Tuning (Bonus)
+Used `GridSearchCV` to tune the Decision Tree Classifier:
+```python
+param_grid = {
+    'max_depth': [3, 5, 10],
+    'min_samples_split': [2, 5, 10]
+}
