@@ -1,0 +1,281 @@
+from google.colab import drive
+drive.mount("/content/drive")
+
+!pwd
+
+!ls
+
+!ls /content/drive/MyDrive/
+
+file_path_in_drive = '/content/drive/MyDrive/NDV/market.csv' 
+
+# Import Libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy import stats # For statistical tests
+
+
+• Generate summary statistics (mean, median, mode, std dev, etc.) for numerical columns. 
+# --- Google Drive Mounting (Required for Colab) ---
+try:
+    from google.colab import drive
+    drive.mount('/content/drive')
+    print("Google Drive mounted successfully.")
+    gdrive_mounted = True
+except ImportError:
+    print("Not running in Google Colab or drive import failed. Skipping Google Drive mounting.")
+    gdrive_mounted = False
+except Exception as e:
+    print(f"Error mounting Google Drive: {e}")
+    gdrive_mounted = False
+file_path_in_drive = '/content/drive/MyDrive/NDV/market.csv'
+
+df_marketing = None
+if gdrive_mounted:
+    try:
+        df_marketing = pd.read_csv(file_path_in_drive, encoding='latin-1')
+        print(f"Marketing analytics dataset loaded successfully from Google Drive: {file_path_in_drive}")
+    except FileNotFoundError:
+        print(f"Error: '{file_path_in_drive}' not found in Google Drive. Please check the path and file name carefully.")
+    except UnicodeDecodeError:
+        print(f"Encoding Error: Could not decode the file with 'latin-1' encoding. Attempting to load with 'cp1252' encoding...")
+        try:
+            df_marketing = pd.read_csv(file_path_in_drive, encoding='cp1252')
+            print(f"Marketing analytics dataset loaded successfully with 'cp1252' encoding.")
+        except Exception as e_cp1252:
+            print(f"Further Error with 'cp1252' encoding: {e_cp1252}")
+            print("Please ensure your CSV file is correctly formatted and try other encodings if necessary (e.g., 'ISO-8859-1').")
+    except Exception as e:
+        print(f"An unexpected error occurred while loading file from Google Drive: {e}")
+if df_marketing is None:
+    print("\nCreating a dummy Marketing Analytics DataFrame for demonstration purposes.")
+    np.random.seed(42) 
+    num_entries = 1000
+    marketing_data = {
+        'CustomerID': range(1, num_entries + 1),
+        'Age': np.random.randint(18, 70, num_entries),
+        'Gender': np.random.choice(['Male', 'Female', 'Other'], num_entries, p=[0.48, 0.5, 0.02]),
+        'Income': np.random.normal(50000, 15000, num_entries).round(2),
+        'Education': np.random.choice(['High School', 'Bachelors', 'Masters', 'PhD'], num_entries, p=[0.2, 0.4, 0.3, 0.1]),
+        'Channel': np.random.choice(['Email', 'Social Media', 'Paid Search', 'Organic Search'], num_entries, p=[0.3, 0.3, 0.2, 0.2]),
+        'CampaignImpressions': np.random.randint(100, 5000, num_entries),
+        'Clicks': np.random.randint(5, 500, num_entries),
+        'Conversion': np.random.choice([0, 1], num_entries, p=[0.75, 0.25]),
+        'PurchaseValue': np.random.normal(150, 70, num_entries).round(2),
+        'CustomerSegment': np.random.choice(['New', 'Existing', 'Loyal'], num_entries, p=[0.25, 0.55, 0.20])
+    }
+    df_marketing = pd.DataFrame(marketing_data)
+    df_marketing['PurchaseValue'] = np.where(df_marketing['Conversion'] == 0, 0, np.abs(df_marketing['PurchaseValue']))
+    df_marketing['Clicks'] = df_marketing.apply(lambda row: min(row['Clicks'], row['CampaignImpressions'] / 5), axis=1).astype(int)
+
+    print("\n--- Using a Dummy Marketing Analytics Dataset for Demonstration ---")
+    print(df_marketing.head())
+
+# Display basic information about the dataset 
+if df_marketing is not None:
+    print("\nDataset Info:")
+    df_marketing.info()
+
+
+• Formulate at least two null and alternative hypotheses. 
+if df_marketing is not None:
+    print("\nDescriptive Statistics for numerical columns (using .describe()):")
+    print(df_marketing.describe())
+
+    print("\n--- Detailed Summary Statistics for Numerical Columns (individual calculations) ---")
+    numerical_cols_marketing = df_marketing.select_dtypes(include=np.number).columns
+    for col in numerical_cols_marketing:
+        print(f"\nColumn: {col}")
+        print(f"Mean: {df_marketing[col].mean():.2f}")
+        print(f"Median: {df_marketing[col].median():.2f}")
+        mode_val = df_marketing[col].mode()
+        print(f"Mode: {mode_val.tolist()}")
+        print(f"Standard Deviation: {df_marketing[col].std():.2f}")
+        print(f"Min: {df_marketing[col].min():.2f}")
+        print(f"Max: {df_marketing[col].max():.2f}")
+        print(f"Quantiles (25th, 50th, 75th):\n{df_marketing[col].quantile([0.25, 0.5, 0.75])}")
+
+    print("\n--- Value Counts for Categorical Columns ---")
+    categorical_cols_marketing = df_marketing.select_dtypes(include='object').columns
+    for col in categorical_cols_marketing:
+        print(f"\nColumn: {col}")
+        print(df_marketing[col].value_counts())
+
+
+
+
+• Conduct appropriate hypothesis tests such as: 
+•  - t-test 
+•  - Chi-square test 
+•  - ANOVA
+
+if df_marketing is not None:
+    print("\n--- Hypothesis Testing for Marketing Analytics Data ---")
+    target_clicks = 100
+    if 'Clicks' in df_marketing.columns:
+        t_stat, p_value = stats.ttest_1samp(df_marketing['Clicks'], target_clicks)
+        print(f"\n--- Hypothesis Test 1: One-Sample T-test for Clicks ---")
+        print(f"Null Hypothesis (H0): The average daily Clicks is {target_clicks}.")
+        print(f"Alternative Hypothesis (H1): The average daily Clicks is NOT {target_clicks}.")
+        print(f"T-statistic: {t_stat:.3f}")
+        print(f"P-value: {p_value:.3f}")
+        alpha = 0.05
+        if p_value < alpha:
+            print(f"Interpretation: With p-value ({p_value:.3f}) < alpha ({alpha}), we reject the null hypothesis.")
+            print(f"Conclusion: There is sufficient evidence to conclude that the average daily Clicks is significantly different from {target_clicks}.")
+        else:
+            print(f"Interpretation: With p-value ({p_value:.3f}) >= alpha ({alpha}), we fail to reject the null hypothesis.")
+            print(f"Conclusion: There is not enough evidence to conclude that the average daily Clicks is significantly different from {target_clicks}.")
+    else:
+        print("\nSkipping Hypothesis Test 1: 'Clicks' column not found.")
+    if 'PurchaseValue' in df_marketing.columns and 'Gender' in df_marketing.columns:
+        male_purchase_value = df_marketing[df_marketing['Gender'] == 'Male']['PurchaseValue']
+        female_purchase_value = df_marketing[df_marketing['Gender'] == 'Female']['PurchaseValue']
+        if not male_purchase_value.empty and not female_purchase_value.empty:
+            t_stat, p_value = stats.ttest_ind(male_purchase_value, female_purchase_value, equal_var=False)
+            print(f"\n--- Hypothesis Test 2: Two-Sample T-test for PurchaseValue (Male vs. Female) ---")
+            print(f"Null Hypothesis (H0): No significant difference in Purchase Value between Male and Female customers.")
+            print(f"Alternative Hypothesis (H1): Significant difference in Purchase Value between Male and Female customers.")
+            print(f"T-statistic: {t_stat:.3f}")
+            print(f"P-value: {p_value:.3f}")
+            alpha = 0.05
+            if p_value < alpha:
+                print(f"Interpretation: With p-value ({p_value:.3f}) < alpha ({alpha}), we reject the null hypothesis.")
+                print(f"Conclusion: There is a significant difference in Purchase Value between Male and Female customers.")
+            else:
+                print(f"Interpretation: With p-value ({p_value:.3f}) >= alpha ({alpha}), we fail to reject the null hypothesis.")
+                print(f"Conclusion: There is no significant difference in Purchase Value between Male and Female customers.")
+        else:
+            print("\nSkipping Hypothesis Test 2: Not enough data for selected genders in 'PurchaseValue' analysis.")
+    else:
+        print("\nSkipping Hypothesis Test 2: 'PurchaseValue' or 'Gender' column not found.")
+    if 'Education' in df_marketing.columns and 'Conversion' in df_marketing.columns:
+        contingency_table_marketing = pd.crosstab(df_marketing['Education'], df_marketing['Conversion'])
+        chi2, p_value, dof, expected = stats.chi2_contingency(contingency_table_marketing)
+        print(f"\n--- Hypothesis Test 3: Chi-Square Test for Education and Conversion ---")
+        print(f"Contingency Table:\n{contingency_table_marketing}")
+        print(f"Null Hypothesis (H0): No association between Education and Conversion.")
+        print(f"Alternative Hypothesis (H1): Association between Education and Conversion.")
+        print(f"Chi-square statistic: {chi2:.3f}")
+        print(f"P-value: {p_value:.3f}")
+        print(f"Degrees of freedom: {dof}")
+        alpha = 0.05
+        if p_value < alpha:
+            print(f"Interpretation: With p-value ({p_value:.3f}) < alpha ({alpha}), we reject the null hypothesis.")
+            print(f"Conclusion: There is a significant association between education level and conversion behavior.")
+        else:
+            print(f"Interpretation: With p_value ({p_value:.3f}) >= alpha ({alpha}), we fail to reject the null hypothesis.")
+            print(f"Conclusion: There is no significant association between education level and conversion behavior.")
+    else:
+        print("\nSkipping Hypothesis Test 3: 'Education' or 'Conversion' column not found.")
+    if 'Income' in df_marketing.columns and 'CustomerSegment' in df_marketing.columns:
+        customer_segments = df_marketing['CustomerSegment'].unique()
+        data_for_anova_income = [df_marketing['Income'][df_marketing['CustomerSegment'] == segment].dropna() for segment in customer_segments]
+        data_for_anova_income = [arr for arr in data_for_anova_income if not arr.empty] # Filter out empty arrays
+        if len(data_for_anova_income) > 1: # ANOVA requires at least two groups
+            f_stat, p_value = stats.f_oneway(*data_for_anova_income)
+            print(f"\n--- Hypothesis Test 4: ANOVA for Income by Customer Segment ---")
+            print(f"Null Hypothesis (H0): Mean income is the same across all customer segments.")
+            print(f"Alternative Hypothesis (H1): At least one customer segment has a different mean income.")
+            print(f"F-statistic: {f_stat:.3f}")
+            print(f"P-value: {p_value:.3f}")
+            alpha = 0.05
+            if p_value < alpha:
+                print(f"Interpretation: With p-value ({p_value:.3f}) < alpha ({alpha}), we reject the null hypothesis.")
+                print(f"Conclusion: There is a significant difference in income across different customer segments.")
+            else:
+                print(f"Interpretation: With p-value ({p_value:.3f}) >= alpha ({alpha}), we fail to reject the null hypothesis.")
+                print(f"Conclusion: There is no significant difference in income across different customer segments.")
+        else:
+            print("\nSkipping Hypothesis Test 4: Not enough valid groups for ANOVA analysis based on 'Income' and 'CustomerSegment'.")
+    else:
+        print("\nSkipping Hypothesis Test 4: 'Income' or 'CustomerSegment' column not found.")
+
+
+
+
+
+• Visualize distributions using boxplots or histograms.
+if df_marketing is not None:
+    print("\n--- Visualizing Marketing Analytics Distributions ---")
+
+    # Histogram for Income
+    if 'Income' in df_marketing.columns:
+        plt.figure(figsize=(10, 6))
+        sns.histplot(df_marketing['Income'], kde=True, bins=30)
+        plt.title('Distribution of Customer Income')
+        plt.xlabel('Income')
+        plt.ylabel('Frequency')
+        plt.grid(axis='y', alpha=0.75)
+        plt.show()
+
+    # Boxplot for PurchaseValue by Channel
+    if 'PurchaseValue' in df_marketing.columns and 'Channel' in df_marketing.columns:
+        plt.figure(figsize=(12, 7))
+        sns.boxplot(x='Channel', y='PurchaseValue', data=df_marketing)
+        plt.title('Purchase Value by Marketing Channel')
+        plt.xlabel('Marketing Channel')
+        plt.ylabel('Purchase Value')
+        plt.xticks(rotation=45, ha='right')
+        plt.tight_layout()
+        plt.show()
+
+    # Bar plot for Conversion Rate by Gender
+    if 'Gender' in df_marketing.columns and 'Conversion' in df_marketing.columns:
+        conversion_rate_by_gender = df_marketing.groupby('Gender')['Conversion'].mean().reset_index()
+        plt.figure(figsize=(8, 6))
+        sns.barplot(x='Gender', y='Conversion', data=conversion_rate_by_gender)
+        plt.title('Conversion Rate by Gender')
+        plt.xlabel('Gender')
+        plt.ylabel('Conversion Rate')
+        plt.ylim(0, 1) # Conversion rate is between 0 and 1
+        plt.show()
+
+
+
+
+• Present p-values and interpretation of results
+if df_marketing is not None:
+    print("\n--- Bonus: Correlation Analysis for Marketing Analytics Data ---")
+    numerical_df_marketing = df_marketing.select_dtypes(include=np.number)
+    if not numerical_df_marketing.empty and numerical_df_marketing.shape[1] > 1:
+        correlation_matrix_marketing = numerical_df_marketing.corr()
+        print("\nCorrelation Matrix of Numerical Marketing Features:")
+        print(correlation_matrix_marketing)
+
+        plt.figure(figsize=(10, 8))
+        sns.heatmap(correlation_matrix_marketing, annot=True, cmap='viridis', fmt=".2f")
+        plt.title('Correlation Matrix of Marketing Analytics Features')
+        plt.show()
+    else:
+        print("\nSkipping Correlation Analysis: Not enough numerical columns in marketing analytics data.")
+
+
+    print("\n--- Bonus: Pivot Tables / Group-wise Summaries for Marketing Analytics Data ---")
+
+    # Example 1: Average Clicks and Conversion Rate by Channel and Customer Segment
+    if all(col in df_marketing.columns for col in ['Clicks', 'Conversion', 'Channel', 'CustomerSegment', 'CampaignImpressions']):
+        pivot_table_marketing_metrics = df_marketing.groupby(['Channel', 'CustomerSegment']).agg(
+            AvgClicks=('Clicks', 'mean'),
+            ConversionRate=('Conversion', 'mean'),
+            TotalImpressions=('CampaignImpressions', 'sum')
+        ).round(3)
+        print("\nAverage Clicks, Conversion Rate, and Total Impressions by Channel and Customer Segment:")
+        print(pivot_table_marketing_metrics)
+    else:
+        print("\nSkipping Pivot Table 1: Required columns not found for analysis by Channel and Customer Segment.")
+
+    # Example 2: Total Purchase Value by Education Level
+    if 'Education' in df_marketing.columns and 'PurchaseValue' in df_marketing.columns:
+        total_purchase_by_education = df_marketing.groupby('Education')['PurchaseValue'].sum().sort_values(ascending=False)
+        print("\nTotal Purchase Value by Education Level:")
+        print(total_purchase_by_education)
+    else:
+        print("\nSkipping Group-wise Summary 2: Required columns not found for Purchase Value by Education Level.")
+
+
+
+
+

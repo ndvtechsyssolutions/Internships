@@ -1,0 +1,241 @@
+from google.colab import drive
+drive.mount('/content/drive')
+
+!pwd
+
+!ls
+
+
+import pandas as pd
+import numpy as np
+df=pd.read_csv('/content/drive/MyDrive/NDV/archive.zip')
+df
+
+
+
+import pandas as pd
+import os
+
+dataset_filename = '/content/drive/MyDrive/NDV/archive.zip'
+print(f"Attempting to load dataset from: {dataset_filename}")
+if not os.path.exists(dataset_filename):
+    print(f"Error: Dataset file '{dataset_filename}' not found.")
+    print("Please check the path. Make sure Google Drive is mounted and the file exists at this exact path.")
+    print("If your file has spaces in its name, rename it (e.g., 'netflix_titles.csv').")
+    exit()
+try:
+    df = pd.read_csv(dataset_filename)
+    print("Dataset loaded successfully!")
+except Exception as e:
+    print(f"An error occurred while loading the dataset: {e}")
+    print("This might be due to file corruption, incorrect format, or permissions.")
+    exit()
+print("\n--- Initial Data Inspection ---")
+print("Shape of the dataset:", df.shape)
+print("\nFirst 5 rows of the dataset:")
+print(df.head())
+print("\nInformation about the dataset (data types, non-null counts):")
+df.info()
+print("\nMissing values before cleaning:")
+print(df.isnull().sum())
+print("\nNumber of duplicate rows before cleaning:", df.duplicated().sum())
+
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import os
+
+print("\n--- Data Cleaning: Handling Missing Values ---")
+
+# Calculate the percentage of missing values for each column
+missing_percentage = df.isnull().sum() / len(df) * 100
+print("\nMissing values percentage:")
+print(missing_percentage[missing_percentage > 0].sort_values(ascending=False))
+
+# --- Handling missing values (drop/fill/replace). ---
+# Option 1: Drop columns with a very high percentage of missing values (e.g., > 70%)
+columns_to_drop = missing_percentage[missing_percentage > 70].index.tolist()
+if columns_to_drop:
+    df.drop(columns=columns_to_drop, inplace=True)
+    print(f"\nDropped columns with >70% missing values: {columns_to_drop}")
+else:
+    print("\nNo columns with >70% missing values to drop.")
+
+# Option 2: Fill missing values based on data type
+for column in df.columns:
+    if df[column].isnull().any():
+        if df[column].dtype == 'object':
+            df[column].fillna('Unknown', inplace=True)
+            print(f"Filled missing categorical values in '{column}' with 'Unknown'.")
+        elif pd.api.types.is_numeric_dtype(df[column]): # Numerical columns
+            df[column].fillna(df[column].mean(), inplace=True)
+            print(f"Filled missing numerical values in '{column}' with its mean.")
+        else:
+            print(f"No specific fill strategy for column '{column}' with type {df[column].dtype}. Manual review needed.")
+print("\nMissing values after handling:")
+print(df.isnull().sum())
+# --- Removing or correcting duplicate records. ---
+print("\n--- Data Cleaning: Handling Duplicates ---")
+initial_rows = df.shape[0]
+df.drop_duplicates(inplace=True)
+rows_after_dropping_duplicates = df.shape[0]
+duplicates_removed = initial_rows - rows_after_dropping_duplicates
+if duplicates_removed > 0:
+    print(f"Number of duplicate rows removed: {duplicates_removed}")
+else:
+    print("No duplicate rows found and removed.")
+print("Shape of the dataset after dropping duplicates:", df.shape)
+
+# --- Converting data types as required. ---
+print("\n--- Data Cleaning: Correcting Data Types ---")
+
+# Common conversions for Netflix dataset:
+if 'date_added' in df.columns and df['date_added'].dtype == 'object':
+    df['date_added'] = pd.to_datetime(df['date_added'], errors='coerce')
+    print("Converted 'date_added' to datetime. (Rows that failed conversion set to NaT)")
+
+if 'release_year' in df.columns and pd.api.types.is_numeric_dtype(df['release_year']):
+    df['release_year'] = df['release_year'].astype('Int64')
+    print("Ensured 'release_year' is of integer type (allowing NaNs).")
+if 'duration' in df.columns:
+    df['duration_value'] = df['duration'].astype(str).str.extract('(\d+)').astype(float)
+    df['duration_unit'] = df['duration'].astype(str).str.extract('([a-zA-Z]+)').iloc[:, 0].str.strip()
+    print("Extracted 'duration_value' (numeric part) and 'duration_unit' (text part) from 'duration' column.")
+print("\nData types after cleaning and initial conversions:")
+df.info()
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import os
+
+print("\n\n--- NumPy Transformations/Calculations ---")
+if 'type' in df.columns and 'duration_value' in df.columns:
+    movies_duration = df[df['type'] == 'Movie']['duration_value'].dropna()
+    tv_shows_duration = df[df['type'] == 'TV Show']['duration_value'].dropna()
+
+    if not movies_duration.empty:
+        avg_movie_duration = np.mean(movies_duration)
+        print(f"Average movie duration: {avg_movie_duration:.2f} minutes (using NumPy).")
+    else:
+        print("No movies found to calculate average duration.")
+
+    if not tv_shows_duration.empty:
+        avg_tv_show_seasons = np.mean(tv_shows_duration)
+        print(f"Average TV Show seasons: {avg_tv_show_seasons:.2f} seasons (using NumPy).")
+    else:
+        print("No TV shows found to calculate average seasons.")
+else:
+    print("Skipping detailed duration analysis as 'type' or 'duration_value' columns are missing or not prepared.")
+
+
+
+
+
+import pandas as pd
+import os
+
+print("\n\n--- Pandas Operations: Filtering, Sorting, Grouping ---")
+
+# --- Use Pandas for filtering, sorting, and grouping data. ---
+
+# Filtering example: Filter content added in the last 2 years (if 'date_added' exists)
+if 'date_added' in df.columns and pd.api.types.is_datetime64_any_dtype(df['date_added']):
+    current_year = pd.Timestamp.now().year
+    recent_content = df[df['date_added'].dt.year >= (current_year - 2)]
+    print(f"\nNumber of content added in the last 2 years: {len(recent_content)}")
+    print("Sample of recent content:")
+    print(recent_content[['title', 'date_added']].head())
+else:
+    print("\n'date_added' column not suitable for filtering by recent years or not found.")
+
+# Sorting example: Sort by release year in descending order and then by title
+if 'release_year' in df.columns:
+    df_sorted = df.sort_values(by=['release_year', 'title'], ascending=[False, True])
+    print("\nTop 5 content by latest release year:")
+    print(df_sorted[['title', 'release_year']].head())
+else:
+    print("\nNo 'release_year' column found for sorting example.")
+
+# Grouping example: Count the number of titles by 'country'
+if 'country' in df.columns:
+    titles_by_country = df.groupby('country').size().reset_index(name='count')
+    print("\nTop 5 countries by number of titles:")
+    print(titles_by_country.sort_values(by='count', ascending=False).head())
+else:
+    print("\nNo 'country' column found for grouping example.")
+
+# Grouping example 2: Average release year by 'type' (Movie/TV Show)
+if 'type' in df.columns and 'release_year' in df.columns:
+    avg_release_year_by_type = df.groupby('type')['release_year'].mean().reset_index()
+    print("\nAverage release year by content type:")
+    print(avg_release_year_by_type)
+else:
+    print("\nNo 'type' or 'release_year' columns found for average release year by type.")
+
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import os
+print("\n\n--- Summary Statistics ---")
+
+print(df.describe(include='all'))
+
+print("\n--- Visual Insights (Optional) ---")
+print("\n--- Bonus: Null Value Distribution Heatmap ---")
+plt.figure(figsize=(12, 7))
+sns.heatmap(df.isnull(), cbar=False, cmap='viridis')
+plt.title('Null Value Distribution Heatmap After Cleaning')
+plt.show()
+print("Heatmap shows remaining nulls (if any) or confirms no nulls are present.")
+print("\n--- Bonus: Correlation Matrix of Numerical Fields ---")
+numerical_df = df.select_dtypes(include=[np.number])
+if not numerical_df.empty and len(numerical_df.columns) > 1:
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(numerical_df.corr(), annot=True, cmap='coolwarm', fmt=".2f")
+    plt.title('Correlation Matrix of Numerical Fields')
+    plt.show()
+else:
+    print("Not enough numerical columns (or no numerical columns) found to create a correlation matrix.")
+if 'type' in df.columns:
+    plt.figure(figsize=(7, 5))
+    sns.countplot(data=df, x='type', palette='pastel')
+    plt.title('Distribution of Content Type')
+    plt.show()
+if 'date_added' in df.columns and pd.api.types.is_datetime64_any_dtype(df['date_added']):
+    df['year_added'] = df['date_added'].dt.year.astype('Int64')
+    yearly_content = df['year_added'].value_counts().sort_index().dropna()
+    if not yearly_content.empty:
+        plt.figure(figsize=(12, 6))
+        sns.lineplot(x=yearly_content.index, y=yearly_content.values)
+        plt.title('Number of Content Added Per Year')
+        plt.xlabel('Year')
+        plt.ylabel('Number of Titles')
+        plt.grid(True)
+        plt.show()
+    else:
+        print("No valid 'year_added' data for plotting.")
+
+
+
+
+
+
+
+
+
+
+
