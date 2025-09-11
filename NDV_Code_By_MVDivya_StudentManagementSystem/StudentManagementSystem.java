@@ -2,20 +2,22 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 class Student {
+    int serialNo;
     int rollNo;
     String name;
-    String course;
+    String subject;
     double marks;
 
-    public Student(int rollNo, String name, String course, double marks) {
+    public Student(int serialNo, int rollNo, String name, String subject, double marks) {
+        this.serialNo = serialNo;
         this.rollNo = rollNo;
         this.name = name;
-        this.course = course;
+        this.subject = subject;
         this.marks = marks;
     }
 
     public void display() {
-        System.out.println("Roll No: " + rollNo + ", Name: " + name + ", Course: " + course + ", Marks: " + marks);
+        System.out.println("S.No: " + serialNo + ", Roll No: " + rollNo + ", Name: " + name + ", Subject: " + subject + ", Marks: " + marks);
     }
 }
 
@@ -51,17 +53,24 @@ public class StudentManagementSystem {
     }
 
     static void addStudent() {
+        System.out.print("Enter S.No: ");
+        int serialNo = sc.nextInt();
+        sc.nextLine();
+
         System.out.print("Enter Roll No: ");
         int rollNo = sc.nextInt();
         sc.nextLine();
+
         System.out.print("Enter Name: ");
         String name = sc.nextLine();
-        System.out.print("Enter Course: ");
-        String course = sc.nextLine();
+
+        System.out.print("Enter Subject: ");
+        String subject = sc.nextLine();
+
         System.out.print("Enter Marks: ");
         double marks = sc.nextDouble();
 
-        students.add(new Student(rollNo, name, course, marks));
+        students.add(new Student(serialNo, rollNo, name, subject, marks));
         System.out.println("Student added!");
     }
 
