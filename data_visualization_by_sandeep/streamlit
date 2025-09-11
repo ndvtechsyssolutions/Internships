@@ -1,0 +1,38 @@
+import streamlit as st
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+
+st.title(" Data Visualization App with Streamlit")
+
+
+uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.success(" Data Loaded Successfully!")
+   
+    st.subheader("🔍 Preview of Dataset")
+    st.dataframe(df.head())
+
+   
+    numeric_columns = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
+
+    if len(numeric_columns) >= 2:
+        st.subheader( Scatter Plot")
+        x_axis = st.selectbox("Select X-axis", numeric_columns)
+        y_axis = st.selectbox("Select Y-axis", numeric_columns, index=1)
+
+        fig, ax = plt.subplots()
+        sns.scatterplot(data=df, x=x_axis, y=y_axis, ax=ax)
+        st.pyplot(fig)
+
+        st.subheader("📊 Histogram")
+        hist_column = st.selectbox("Select column for histogram", numeric_columns)
+        fig2, ax2 = plt.subplots()
+        sns.histplot(df[hist_column], kde=True, ax=ax2)
+        st.pyplot(fig2)
+    else:
+        st.warning("Dataset must have at least two numeric columns for visualization.")
+else:
+    st.info("Please upload a CSV file to get started.")
