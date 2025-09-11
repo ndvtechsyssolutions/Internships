@@ -1,0 +1,24 @@
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.db
+
+# VS Code
+.vscode/
+.ipynb_checkpoints/
+
+# Virtual Environments
+venv/
+.venv/
+
+# Data files
+*.csv
+*.tsv
+
+# Env settings
+.env
