@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sruthy's Product Catalog</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #004080;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            padding: 2rem;
+        }
+        .product-card {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+        }
+        section {
+            padding: 2rem;
+        }
+        footer {
+            background-color: #004080;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            list-style: none;
+            padding: 0;
+        }
+        .social-links a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Sruthy's Product Catalog</h1>
+        <nav>
+            <ul>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="products" class="grid-container">
+            <article class="product-card">
+                <img src="images/product1.jpg" alt="Product 1" />
+                <h2>Cool Table Fan</h2>
+                <p>Stay Cool with Our Sleek Blue Table Fan!</p>
+            </article>
+            <article class="product-card">
+                <img src="images/product2.jpg" alt="Product 2" />
+                <h2>Ceiling Fan</h2>
+                <p>Elegant Comfort with Our Light Brown Ceiling Fan!</p>
+            </article>
+            <article class="product-card">
+                <img src="images/product3.jpg" alt="Product 3" />
+                <h2>Electric Generator</h2>
+                <p>Reliable Power Anywhere with Our Compact Electric Generator.</p>
+            </article>
+            <!-- Add more products as needed -->
+        </section>
+
+        <section id="about">
+            <h2>About Us</h2>
+            <p>Welcome! I'm Sruthy, and I’m passionate about providing high-quality products at affordable prices.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Email: <strong>jsruthy771@gmail.com</strong></p> 
+            <p>Phone: +91-6235704625</p> 
+        </section>
+    </main>
+
+    <footer>
+        <p>Follow Sruthy on: sruthy_sree</p>
+        <ul class="social-links">
+            <li><a href="#">Facebook.com</a></li>
+            <li><a href="#">Instagram.com</a></li>
+            <li><a href="#">
