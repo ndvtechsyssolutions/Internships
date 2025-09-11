@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Virtual Environments
+.venv/
+venv/
+
+# Data Files (optional)
+*.csv
+
+# Environment
+.env
