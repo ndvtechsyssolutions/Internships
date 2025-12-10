@@ -1,0 +1,61 @@
+{
+  "users": [
+    {
+      "id": "admin-1",
+      "email": "admin@shuttlehq.io",
+      "password": "admin123",
+      "role": "admin",
+      "name": "Tournament Admin"
+    },
+    {
+      "id": "facility-1",
+      "email": "facility@smasharena.io",
+      "password": "facility123",
+      "role": "facility",
+      "name": "Smash Arena Manager",
+      "facilityId": "facility-1"
+    },
+    {
+      "id": "user-1",
+      "email": "player@rallyclub.io",
+      "password": "user123",
+      "role": "user",
+      "name": "Rally Club Player"
+    }
+  ],
+  "facilities": [
+    {
+      "id": "facility-1",
+      "name": "Smash Arena",
+      "location": "Bengaluru",
+      "courts": 6,
+      "contact": "+91-90000-11111"
+    }
+  ],
+  "tournaments": [
+    {
+      "id": "tour-1",
+      "name": "Smash Masters 2025",
+      "sport": "Badminton",
+      "level": "Amateur",
+      "startDate": "2025-01-15",
+      "endDate": "2025-01-17",
+      "entryFee": 1500,
+      "facilityId": "facility-1",
+      "status": "open",
+      "maxPlayers": 64,
+      "registeredCount": 2
+    }
+  ],
+  "registrations": [
+    {
+      "id": "reg-1",
+      "tournamentId": "tour-1",
+      "userId": "user-1",
+      "playerName": "Rally Club Player",
+      "category": "Men's Singles",
+      "paymentStatus": "paid"
+    }
+  ],
+  "payments": []
+}
